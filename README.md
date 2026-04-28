@@ -330,10 +330,4 @@ A place where students can:
 
 ---
 
-# Author
 
-Built by Swatishree Behuria
-
-BTech CSE (Data Science)
-
-Building Medha as a startup-level full-stack product for the future of student preparation.
