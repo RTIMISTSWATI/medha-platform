@@ -31,4 +31,6 @@ __pycache__/
 venv/
 
 temp.py
+input.txt
 code-execution/temp.py
+code-execution/input.txt

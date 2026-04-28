@@ -8,51 +8,74 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post("/execute", (req, res) => {
-    const { language, code, input, expectedOutput } = req.body;
+app.post("/execute", async (req, res) => {
+    const { language, code, testCases } = req.body;
 
-    if (!language || !code) {
+    if (!language || !code || !testCases) {
         return res.status(400).json({
             status: "Error",
-            message: "Language and code are required"
+            message: "Language, code, and testCases are required"
         });
     }
 
     if (language === "python") {
+        // Save user code temporarily
         fs.writeFileSync("temp.py", code);
 
-        exec(`echo "${input}" | python temp.py`, (error, stdout, stderr) => {
-            if (error) {
-                return res.json({
-                    status: "Runtime Error",
-                    error: stderr
-                });
-            }
+        for (let i = 0; i < testCases.length; i++) {
+            const { input, expectedOutput } = testCases[i];
 
-            const userOutput = stdout.trim();
-            const correctOutput = expectedOutput.trim();
+            // Save test case input into file (better than echo)
+            fs.writeFileSync("input.txt", input);
 
-            if (userOutput === correctOutput) {
-                return res.json({
-                    status: "Accepted",
-                    output: userOutput
-                });
-            } else {
-                return res.json({
-                    status: "Wrong Answer",
-                    expected: correctOutput,
-                    received: userOutput
-                });
+            const result = await new Promise((resolve) => {
+                exec(
+                    `python temp.py < input.txt`,
+                    (error, stdout, stderr) => {
+                        if (error) {
+                            resolve({
+                                status: "Runtime Error",
+                                error: stderr
+                            });
+                            return;
+                        }
+
+                        const userOutput = stdout.trim();
+                        const correctOutput = expectedOutput.trim();
+
+                        if (userOutput === correctOutput) {
+                            resolve({
+                                status: "Passed"
+                            });
+                        } else {
+                            resolve({
+                                status: "Wrong Answer",
+                                expected: correctOutput,
+                                received: userOutput,
+                                failedCase: i + 1
+                            });
+                        }
+                    }
+                );
+            });
+
+            // Stop immediately if one test case fails
+            if (result.status !== "Passed") {
+                return res.json(result);
             }
+        }
+
+        // If all test cases pass
+        return res.json({
+            status: "Accepted",
+            message: "All test cases passed"
         });
     }
 
-    else {
-        return res.status(400).json({
-            status: "Error",
-            message: "Only Python supported for now"
-        });
-    }
+    return res.status(400).json({
+        status: "Error",
+        message: "Only Python supported for now"
+    });
 });
 
 app.listen(5001, () => {
