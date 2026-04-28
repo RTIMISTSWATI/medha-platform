@@ -1,36 +1,52 @@
-# dependencies
+# ── Dependencies ──────────────────────────────────────────────
 node_modules/
+.pnp
+.pnp.js
 
-# environment files
+# ── Environment ───────────────────────────────────────────────
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*.local
 
-# build folders
+# ── Build outputs ─────────────────────────────────────────────
 dist/
 build/
+.dist/
+out/
 
-# logs
-logs
+# ── Logs ──────────────────────────────────────────────────────
+logs/
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# OS files
+# ── Runtime temp files (code execution engine) ────────────────
+code-execution/temp.*
+code-execution/input.txt
+code-execution/output.txt
+temp.py
+input.txt
+
+# ── Python ────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.venv/
+*.egg-info/
+
+# ── OS ────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 
-# editor files
+# ── Editor ────────────────────────────────────────────────────
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# Python
-__pycache__/
-*.pyc
-venv/
-
-temp.py
-input.txt
-code-execution/temp.py
-code-execution/input.txt
+# ── Testing / Coverage ────────────────────────────────────────
+coverage/
+.nyc_output/

@@ -1,83 +1,91 @@
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
+const path = require("path");
 const { exec } = require("child_process");
 
 const app = express();
+const PORT = 5001;
 
+// ── Temp file paths ───────────────────────────────────────────
+const TEMP_CODE = path.join(__dirname, "temp.py");
+const TEMP_INPUT = path.join(__dirname, "input.txt");
+
+// ── Middleware ────────────────────────────────────────────────
 app.use(cors());
 app.use(express.json());
 
-app.post("/execute", async (req, res) => {
-    const { language, code, testCases } = req.body;
+// ── Health check ──────────────────────────────────────────────
+app.get("/health", (_req, res) => res.json({ status: "ok", service: "code-execution" }));
 
-    if (!language || !code || !testCases) {
-        return res.status(400).json({
-            status: "Error",
-            message: "Language, code, and testCases are required"
-        });
-    }
-
-    if (language === "python") {
-        // Save user code temporarily
-        fs.writeFileSync("temp.py", code);
-
-        for (let i = 0; i < testCases.length; i++) {
-            const { input, expectedOutput } = testCases[i];
-
-            // Save test case input into file (better than echo)
-            fs.writeFileSync("input.txt", input);
-
-            const result = await new Promise((resolve) => {
-                exec(
-                    `python temp.py < input.txt`,
-                    (error, stdout, stderr) => {
-                        if (error) {
-                            resolve({
-                                status: "Runtime Error",
-                                error: stderr
-                            });
-                            return;
-                        }
-
-                        const userOutput = stdout.trim();
-                        const correctOutput = expectedOutput.trim();
-
-                        if (userOutput === correctOutput) {
-                            resolve({
-                                status: "Passed"
-                            });
-                        } else {
-                            resolve({
-                                status: "Wrong Answer",
-                                expected: correctOutput,
-                                received: userOutput,
-                                failedCase: i + 1
-                            });
-                        }
-                    }
-                );
-            });
-
-            // Stop immediately if one test case fails
-            if (result.status !== "Passed") {
-                return res.json(result);
-            }
+// ── Helpers ───────────────────────────────────────────────────
+function runPython(input) {
+  fs.writeFileSync(TEMP_INPUT, input);
+  return new Promise((resolve) => {
+    exec(
+      `python "${TEMP_CODE}" < "${TEMP_INPUT}"`,
+      { timeout: 10000 },
+      (error, stdout, stderr) => {
+        if (error) {
+          resolve({ error: stderr.trim() || error.message });
+        } else {
+          resolve({ output: stdout });
         }
+      }
+    );
+  });
+}
 
-        // If all test cases pass
-        return res.json({
-            status: "Accepted",
-            message: "All test cases passed"
-        });
+// ── POST /execute ─────────────────────────────────────────────
+// Supports two modes:
+//   Playground : { language, code, input }          → returns { output } | { error }
+//   Judge      : { language, code, testCases }       → returns { status, results }
+app.post("/execute", async (req, res) => {
+  const { language, code, input, testCases } = req.body;
+
+  if (!language || !code) {
+    return res.status(400).json({ error: "language and code are required" });
+  }
+
+  if (language !== "python") {
+    return res.status(400).json({ error: `Language "${language}" is not supported yet` });
+  }
+
+  fs.writeFileSync(TEMP_CODE, code);
+
+  // ── Judge mode ──────────────────────────────────────────────
+  if (Array.isArray(testCases) && testCases.length > 0) {
+    const results = [];
+
+    for (let i = 0; i < testCases.length; i++) {
+      const { input: tcInput = "", expectedOutput = "" } = testCases[i];
+      const result = await runPython(tcInput);
+
+      if (result.error) {
+        results.push({ testCase: i + 1, status: "Runtime Error", error: result.error });
+        return res.json({ status: "Runtime Error", results });
+      }
+
+      const actual = result.output.trim();
+      const expected = expectedOutput.trim();
+
+      if (actual === expected) {
+        results.push({ testCase: i + 1, status: "Passed" });
+      } else {
+        results.push({ testCase: i + 1, status: "Wrong Answer", expected, actual });
+        return res.json({ status: "Wrong Answer", results });
+      }
     }
 
-    return res.status(400).json({
-        status: "Error",
-        message: "Only Python supported for now"
-    });
+    return res.json({ status: "Accepted", results });
+  }
+
+  // ── Playground mode ─────────────────────────────────────────
+  const result = await runPython(input ?? "");
+  return res.json(result);
 });
 
-app.listen(5001, () => {
-    console.log("Judge System running on port 5001");
+// ── Start ─────────────────────────────────────────────────────
+app.listen(PORT, () => {
+  console.log(`[code-execution] Judge running on http://localhost:${PORT}`);
 });

@@ -1,21 +1,19 @@
 {
-  "name": "code-execution",
+  "name": "medha-code-execution",
   "version": "1.0.0",
-  "description": "",
+  "description": "Medha Judge System — code execution engine",
   "main": "execute.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node execute.js",
+    "dev": "nodemon execute.js"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1"
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.0.1"
   }
 }
