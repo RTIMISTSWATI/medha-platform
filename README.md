@@ -51,7 +51,7 @@ A single destination for:
 
 ---
 
-# Module 1 — Code Playground ✅
+# Module 1 — Code Playground 
 
 A real coding environment for practice and problem solving.
 
@@ -71,7 +71,7 @@ To give users a fast and professional environment for coding practice without le
 
 ---
 
-# Module 2 — Smart Notes Space ✅
+# Module 2 — Smart Notes Space 
 
 A personal notes system for preparation and revision.
 
@@ -103,7 +103,7 @@ To help users build their own preparation knowledge base inside Medha.
 
 ---
 
-# Module 3 — Study Planner + Tracker ✅ (Foundation)
+# Module 3 — Study Planner + Tracker (Foundation)
 
 A productivity engine for consistent preparation.
 
@@ -160,7 +160,7 @@ To transform preparation from random effort into a measurable system.
 
 ---
 
-# Module 4 — Problem Solving Zone 🚀
+# Module 4 — Problem Solving Zone 
 
 Beyond just IDE practice.
 
@@ -181,7 +181,7 @@ To make Medha a true preparation platform, not just a playground.
 
 ---
 
-# Module 5 — Resume Builder 🚀
+# Module 5 — Resume Builder 
 
 ## Features
 
@@ -197,7 +197,7 @@ To help users move from preparation to placement.
 
 ---
 
-# Module 6 — Skill Gap Analysis 🚀
+# Module 6 — Skill Gap Analysis 
 
 ## Features
 
@@ -213,7 +213,7 @@ To show users exactly what they need to learn next.
 
 ---
 
-# Module 7 — Exam Prep Zone 🚀
+# Module 7 — Exam Prep Zone 
 
 ## Features
 
@@ -230,7 +230,7 @@ To keep users updated and prepared.
 
 ---
 
-# Module 8 — Focus Mode + Spotify Study Space 🚀
+# Module 8 — Focus Mode + Spotify Study Space 
 
 A cozy premium productivity layer.
 
@@ -254,7 +254,7 @@ To help users enter deep focus mode and stay longer on the platform.
 
 ---
 
-# AI Mentor System 🚀
+# AI Mentor System 
 
 ## Features
 
