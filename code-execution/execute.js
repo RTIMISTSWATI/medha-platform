@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/execute", (req, res) => {
-    const { language, code } = req.body;
+    const { language, code, input, expectedOutput } = req.body;
 
     if (!language || !code) {
         return res.status(400).json({
@@ -21,7 +21,7 @@ app.post("/execute", (req, res) => {
     if (language === "python") {
         fs.writeFileSync("temp.py", code);
 
-        exec("python temp.py", (error, stdout, stderr) => {
+        exec(`echo "${input}" | python temp.py`, (error, stdout, stderr) => {
             if (error) {
                 return res.json({
                     status: "Runtime Error",
@@ -29,10 +29,21 @@ app.post("/execute", (req, res) => {
                 });
             }
 
-            return res.json({
-                status: "Accepted",
-                output: stdout
-            });
+            const userOutput = stdout.trim();
+            const correctOutput = expectedOutput.trim();
+
+            if (userOutput === correctOutput) {
+                return res.json({
+                    status: "Accepted",
+                    output: userOutput
+                });
+            } else {
+                return res.json({
+                    status: "Wrong Answer",
+                    expected: correctOutput,
+                    received: userOutput
+                });
+            }
         });
     }
 
@@ -45,5 +56,5 @@ app.post("/execute", (req, res) => {
 });
 
 app.listen(5001, () => {
-    console.log("Code Execution Engine running on port 5001");
+    console.log("Judge System running on port 5001");
 });
