@@ -1,0 +1,204 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Tabs ────────────────────────────────────────────────────── */
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.tab {
+  background: none;
+  border: none;
+  border-radius: 7px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: background 0.12s, color 0.12s;
+}
+
+.tab:hover {
+  background: var(--bg-card);
+  color: var(--text);
+}
+
+.tabActive {
+  background: var(--accent) !important;
+  color: #fff !important;
+}
+
+.taskCount {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--text-muted);
+  padding-right: 8px;
+}
+
+/* ── Empty ───────────────────────────────────────────────────── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 48px 24px;
+  color: var(--text-muted);
+  font-size: 13px;
+  background: var(--bg-surface);
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+}
+
+.empty span { font-size: 32px; }
+
+/* ── List ────────────────────────────────────────────────────── */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Card ────────────────────────────────────────────────────── */
+.card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px 12px 0;
+  transition: border-color 0.15s, opacity 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.cardDone {
+  opacity: 0.55;
+}
+
+.cardDone .taskTitle {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* Priority left stripe */
+.priorityStripe {
+  width: 3px;
+  align-self: stretch;
+  border-radius: 0 2px 2px 0;
+  flex-shrink: 0;
+  margin-right: 2px;
+}
+
+/* Checkbox */
+.checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.checkbox:hover {
+  border-color: var(--accent);
+}
+
+.checkboxDone {
+  background: var(--success) !important;
+  border-color: var(--success) !important;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.titleRow {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.taskTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.subjectTag,
+.timeTag,
+.deadlineTag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--bg-card);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.urgent {
+  color: var(--warning) !important;
+  border-color: rgba(245, 158, 11, 0.3) !important;
+  background: rgba(245, 158, 11, 0.08) !important;
+}
+
+.overdue {
+  color: var(--error) !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
+  background: rgba(239, 68, 68, 0.08) !important;
+}
+
+/* Delete */
+.deleteBtn {
+  background: none;
+  border: none;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity 0.15s, background 0.12s;
+  flex-shrink: 0;
+}
+
+.card:hover .deleteBtn {
+  opacity: 1;
+}
+
+.deleteBtn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error);
+}

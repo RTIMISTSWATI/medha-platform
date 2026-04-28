@@ -5,10 +5,10 @@ import styles from "./AppNav.module.css";
 const NAV_ITEMS = [
   { to: "/playground", label: "Code Playground", icon: "⚡" },
   { to: "/notes",      label: "Smart Notes",     icon: "📝" },
-  // Phase 3+
-  // { to: "/planner",   label: "Study Planner",   icon: "📅" },
-  // { to: "/resume",    label: "Resume Builder",  icon: "📄" },
-  // { to: "/tracker",   label: "Progress",        icon: "📊" },
+  { to: "/planner",    label: "Study Planner",   icon: "📅" },
+  // Phase 4+
+  // { to: "/resume",  label: "Resume Builder",  icon: "📄" },
+  // { to: "/tracker", label: "Progress",         icon: "📊" },
 ];
 
 export default function AppNav() {
