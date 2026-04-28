@@ -1,0 +1,182 @@
+.panel {
+  width: 260px;
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 16px 14px;
+  overflow-y: auto;
+  gap: 14px;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panelTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.counter {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* ── Flip Card ───────────────────────────────────────────────── */
+.card {
+  perspective: 1000px;
+  height: 160px;
+  cursor: pointer;
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flipped .cardInner {
+  transform: rotateY(180deg);
+}
+
+.cardFront,
+.cardBack {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.cardFront {
+  background: linear-gradient(135deg, #1e3a5f 0%, #1e293b 100%);
+  border: 1px solid var(--border);
+}
+
+.cardBack {
+  background: linear-gradient(135deg, #1a3a2a 0%, #1e293b 100%);
+  border: 1px solid var(--success);
+  transform: rotateY(180deg);
+}
+
+.cardSubject {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cardTerm {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.tapHint {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.cardDef {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* ── Navigation ─────────────────────────────────────────────── */
+.nav {
+  display: flex;
+  gap: 8px;
+}
+
+.navBtn {
+  flex: 1;
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.12s;
+}
+
+.navBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.empty {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* ── Divider ─────────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── Tips ────────────────────────────────────────────────────── */
+.tipsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tipsTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tipsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.tipsList li {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding-left: 12px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.tipsList li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.tipsList strong {
+  color: var(--text);
+  font-weight: 600;
+}

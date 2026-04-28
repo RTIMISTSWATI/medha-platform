@@ -16,13 +16,6 @@ export default function CodeEditor() {
 
   return (
     <div className={styles.container}>
-      {/* ── Header ── */}
-      <header className={styles.header}>
-        <span className={styles.logo}>⚡ Medha</span>
-        <h1 className={styles.title}>Code Playground</h1>
-        <div className={styles.headerRight} />
-      </header>
-
       {/* ── Toolbar ── */}
       <div className={styles.toolbar}>
         <select

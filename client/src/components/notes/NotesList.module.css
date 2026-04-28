@@ -1,0 +1,124 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 10px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+  padding: 24px;
+}
+
+.emptyIcon {
+  font-size: 36px;
+  margin-bottom: 4px;
+}
+
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  background: rgba(59, 130, 246, 0.04);
+}
+
+.cardActive {
+  border-color: var(--accent) !important;
+  background: rgba(59, 130, 246, 0.08) !important;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subjectTag {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(59, 130, 246, 0.12);
+  padding: 2px 7px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.cardActions {
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.card:hover .cardActions {
+  opacity: 1;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  font-size: 13px;
+  padding: 3px 5px;
+  border-radius: 4px;
+  color: var(--text-muted);
+  transition: background 0.12s;
+  line-height: 1;
+}
+
+.iconBtn:hover {
+  background: var(--bg-card);
+}
+
+.pinned {
+  opacity: 1 !important;
+  filter: none;
+}
+
+.deleteBtn:hover {
+  color: var(--error);
+}
+
+.cardTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardPreview {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardDate {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
