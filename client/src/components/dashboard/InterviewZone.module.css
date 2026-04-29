@@ -1,0 +1,182 @@
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.title  { font-size: 15px; font-weight: 800; color: var(--text); }
+.sub    { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+.totalBadge {
+  display: flex; flex-direction: column; align-items: flex-end;
+  background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 10px;
+  padding: 8px 14px;
+  flex-shrink: 0;
+}
+
+.totalNum   { font-size: 20px; font-weight: 900; color: var(--accent); line-height: 1; }
+.totalLabel { font-size: 10px; color: var(--text-muted); font-weight: 600; }
+
+/* ── Tabs ────────────────────────────────────────────────────── */
+.tabs {
+  display: flex; gap: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.tab {
+  flex: 1; background: none; border: none;
+  border-radius: 7px; padding: 7px 8px;
+  font-size: 11px; font-weight: 600;
+  color: var(--text-muted);
+  transition: all 0.12s;
+  white-space: nowrap;
+}
+
+.tab:hover { background: var(--bg-surface); color: var(--text); }
+.tabActive { background: var(--accent) !important; color: #fff !important; }
+
+/* ── DSA ─────────────────────────────────────────────────────── */
+.dsaList, .coreList { display: flex; flex-direction: column; gap: 10px; }
+
+.dsaRow, .coreRow { display: flex; flex-direction: column; gap: 5px; }
+
+.dsaMeta, .coreMeta {
+  display: flex; align-items: center; gap: 8px;
+}
+
+.coreIcon { font-size: 14px; }
+
+.dsaLabel, .coreLabel {
+  flex: 1; font-size: 13px; font-weight: 600; color: var(--text);
+}
+
+.dsaControls {
+  display: flex; align-items: center; gap: 6px;
+}
+
+.ctrlBtn {
+  width: 24px; height: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 14px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.12s;
+}
+
+.ctrlBtn:hover { border-color: var(--accent); color: var(--accent); }
+
+.dsaCount {
+  font-size: 13px; font-weight: 800; color: var(--text);
+  min-width: 40px; text-align: center;
+}
+
+.dsaTotal { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+
+.dsaTrack {
+  height: 4px; background: var(--bg-card);
+  border-radius: 99px; overflow: hidden;
+}
+
+.dsaFill {
+  height: 100%; border-radius: 99px;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ── HR ──────────────────────────────────────────────────────── */
+.hrList { display: flex; flex-direction: column; gap: 6px; }
+
+.hrProgress { display: flex; flex-direction: column; gap: 5px; margin-bottom: 4px; }
+
+.hrCount { font-size: 12px; font-weight: 700; color: var(--text-muted); }
+
+.hrTrack { height: 4px; background: var(--bg-card); border-radius: 99px; overflow: hidden; }
+
+.hrFill {
+  height: 100%; background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 99px;
+  transition: width 0.5s ease;
+}
+
+.hrItem {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  text-align: left; width: 100%;
+  transition: all 0.12s;
+}
+
+.hrItem:hover { border-color: rgba(59,130,246,0.3); }
+
+.hrItemDone { opacity: 0.55; border-color: rgba(34,197,94,0.2) !important; }
+
+.hrCheck {
+  width: 18px; height: 18px;
+  border-radius: 5px; border: 2px solid var(--border);
+  background: var(--bg-surface);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800; color: #fff;
+  flex-shrink: 0; transition: all 0.12s;
+}
+
+.hrCheckDone { background: var(--success) !important; border-color: var(--success) !important; }
+
+.hrLabel { font-size: 13px; font-weight: 500; color: var(--text); }
+.hrItemDone .hrLabel { text-decoration: line-through; color: var(--text-muted); }
+
+/* ── Mock ────────────────────────────────────────────────────── */
+.mockSection { display: flex; flex-direction: column; gap: 16px; align-items: center; padding: 8px 0; }
+
+.mockCount { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+
+.mockNum   { font-size: 52px; font-weight: 900; color: var(--accent); line-height: 1; letter-spacing: -2px; }
+.mockLabel { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+
+.mockDots { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+
+.mockDot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--bg-card); border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.mockDotDone {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 6px rgba(59,130,246,0.5);
+}
+
+.mockBtn {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff; border: none;
+  border-radius: 10px; padding: 11px 24px;
+  font-size: 13px; font-weight: 700;
+  transition: opacity 0.15s, transform 0.12s;
+  box-shadow: 0 4px 12px rgba(34,197,94,0.3);
+}
+
+.mockBtn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+.mockTips {
+  display: flex; flex-direction: column; gap: 6px;
+  background: rgba(59,130,246,0.06);
+  border: 1px solid rgba(59,130,246,0.15);
+  border-radius: 8px; padding: 12px 14px;
+  width: 100%;
+}
+
+.mockTips p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+.mockTips strong { color: var(--text); }

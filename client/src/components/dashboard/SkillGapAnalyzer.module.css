@@ -1,0 +1,137 @@
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header { display: flex; align-items: flex-start; justify-content: space-between; }
+
+.title { font-size: 15px; font-weight: 800; color: var(--text); }
+.sub   { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+/* ── Form ────────────────────────────────────────────────────── */
+.form { display: flex; flex-direction: column; gap: 16px; }
+
+.field { display: flex; flex-direction: column; gap: 8px; }
+
+.label {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.6px;
+  color: var(--text-muted);
+}
+
+.hint { font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 10px; }
+
+.roleGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+}
+
+.roleBtn {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 11px; font-weight: 600;
+  color: var(--text-muted);
+  transition: all 0.14s;
+  text-align: left;
+}
+
+.roleBtn:hover { border-color: var(--accent); color: var(--text); }
+
+.roleBtnActive {
+  border-color: var(--accent) !important;
+  background: rgba(59,130,246,0.12) !important;
+  color: var(--accent) !important;
+}
+
+.textarea {
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  font-size: 13px;
+  outline: none;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
+  transition: border-color 0.15s;
+}
+
+.textarea:focus { border-color: var(--accent); }
+.textarea::placeholder { color: var(--text-muted); }
+
+.analyzeBtn {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: #fff; border: none;
+  border-radius: 10px;
+  padding: 11px 24px;
+  font-size: 13px; font-weight: 700;
+  transition: opacity 0.15s, transform 0.12s;
+  box-shadow: 0 4px 14px rgba(59,130,246,0.3);
+  align-self: flex-start;
+}
+
+.analyzeBtn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* ── Results ─────────────────────────────────────────────────── */
+.results {
+  display: flex; flex-direction: column; gap: 16px;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.resultsTop { display: flex; align-items: center; gap: 24px; }
+
+/* Ring */
+.ring { position: relative; width: 90px; height: 90px; flex-shrink: 0; }
+
+.ringLabel {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+
+.ringScore { font-size: 18px; font-weight: 900; line-height: 1; }
+.ringText  { font-size: 10px; color: var(--text-muted); font-weight: 600; }
+
+.resultsSummary { display: flex; gap: 20px; flex-wrap: wrap; }
+
+.resultStat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+
+.statNum   { font-size: 22px; font-weight: 900; line-height: 1; }
+.statLabel { font-size: 10px; color: var(--text-muted); font-weight: 600; text-align: center; }
+
+/* Skill sections */
+.skillSection { display: flex; flex-direction: column; gap: 8px; }
+
+.skillSectionLabel {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.skillTags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.skillTag {
+  font-size: 12px; font-weight: 600;
+  padding: 4px 10px; border-radius: 6px;
+  border: 1px solid;
+}
+
+.skillMissing { color: #ef4444; border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.08); }
+.skillMatched { color: #22c55e; border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.08); }
+.skillNice    { color: #f59e0b; border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.08); }
+
+@media (max-width: 700px) { .roleGrid { grid-template-columns: repeat(2, 1fr); } }
