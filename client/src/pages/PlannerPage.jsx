@@ -11,31 +11,33 @@ import styles from "./PlannerPage.module.css";
 export default function PlannerPage() {
   const {
     filteredTasks, stats, xp, levelInfo, streak, heatmap,
-    form, formOpen, filterTab,
-    setFormOpen, setFilterTab,
-    updateForm, submitTask,
-    completeTask, uncompleteTask, deleteTask,
+    form, formOpen, editingId, filterTab, xpFlash,
+    openCreateForm, openEditForm, closeForm,
+    setFilterTab, updateForm, submitTask,
+    completeTask, uncompleteTask, pinTask, deleteTask,
   } = usePlanner();
 
   return (
     <div className={styles.page}>
-      {/* Header */}
+
+      {/* ── Header ── */}
       <header className={styles.header}>
         <div>
           <h1 className={styles.title}>📅 Study Planner</h1>
-          <p className={styles.subtitle}>Plan · Track · Achieve</p>
+          <p className={styles.subtitle}>Plan · Track · Achieve · Level Up</p>
         </div>
-        <button className={styles.addBtn} onClick={() => setFormOpen(true)}>
+        <button className={styles.addBtn} onClick={openCreateForm}>
           ➕ Add Task
         </button>
       </header>
 
-      {/* Stats bar */}
+      {/* ── Stats ── */}
       <StatsBar stats={stats} />
 
-      {/* Main grid */}
+      {/* ── Main grid ── */}
       <div className={styles.grid}>
-        {/* Left column: Tasks + Roadmap */}
+
+        {/* Left: Tasks + Roadmap */}
         <div className={styles.leftCol}>
           <TaskList
             tasks={filteredTasks}
@@ -43,25 +45,29 @@ export default function PlannerPage() {
             onFilterChange={setFilterTab}
             onComplete={completeTask}
             onUncomplete={uncompleteTask}
+            onEdit={openEditForm}
+            onPin={pinTask}
             onDelete={deleteTask}
+            xpFlash={xpFlash}
           />
           <RoadmapGenerator />
         </div>
 
-        {/* Right column: Streak + Heatmap */}
+        {/* Right: Streak + Heatmap */}
         <div className={styles.rightCol}>
           <StreakPanel xp={xp} levelInfo={levelInfo} streak={streak} />
           <StudyHeatmap heatmap={heatmap} />
         </div>
       </div>
 
-      {/* Task form modal */}
+      {/* ── Task form modal ── */}
       {formOpen && (
         <TaskForm
           form={form}
           onChange={updateForm}
           onSubmit={submitTask}
-          onClose={() => setFormOpen(false)}
+          onClose={closeForm}
+          isEditing={!!editingId}
         />
       )}
     </div>
