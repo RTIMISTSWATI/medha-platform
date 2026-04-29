@@ -12,7 +12,6 @@
   flex-direction: column;
 }
 
-/* CodeEditorPage fills remaining height */
 .appMain > * {
   flex: 1;
   min-height: 0;
