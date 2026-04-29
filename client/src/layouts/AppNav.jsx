@@ -6,9 +6,8 @@ const NAV_ITEMS = [
   { to: "/playground", label: "Code Playground", icon: "⚡" },
   { to: "/notes",      label: "Smart Notes",     icon: "📝" },
   { to: "/planner",    label: "Study Planner",   icon: "📅" },
+  { to: "/questions",  label: "Question Zone",   icon: "🎯" },
   { to: "/dashboard",  label: "Dashboard",       icon: "📊" },
-  // Phase 5+
-  // { to: "/resume",  label: "Resume Builder",  icon: "📄" },
 ];
 
 export default function AppNav() {

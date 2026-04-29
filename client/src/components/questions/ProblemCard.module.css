@@ -1,0 +1,190 @@
+.card {
+  display: flex;
+  align-items: flex-start;        /* expand with content, not compress */
+  gap: 0;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  position: relative;
+  /* NO overflow:hidden — was clipping wrapped tags */
+}
+
+.card:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.18);
+}
+
+.card:hover .actions { opacity: 1; }
+
+.cardSolved { opacity: 0.55; }
+.cardSolved .title {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* ── Left accent stripe ──────────────────────────────────────── */
+.accent {
+  width: 4px;
+  align-self: stretch;
+  border-radius: 10px 0 0 10px;
+  flex-shrink: 0;
+  min-height: 100%;
+}
+
+/* ── Inner wrapper (everything except accent) ────────────────── */
+.inner {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 12px 13px 12px;
+}
+
+/* ── Checkbox ────────────────────────────────────────────────── */
+.checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.14s;
+  align-self: flex-start;
+  margin-top: 1px;
+}
+
+.checkbox:hover {
+  border-color: var(--success);
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.checkboxDone {
+  background: var(--success) !important;
+  border-color: var(--success) !important;
+}
+
+.checkmark {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* ── Body ────────────────────────────────────────────────────── */
+.body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+/* ── Title row ───────────────────────────────────────────────── */
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;        /* keep title + badge on same line */
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+
+.diffBadge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 5px;
+  border: 1px solid;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* ── Meta tags row ───────────────────────────────────────────── */
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+}
+
+.companyTag,
+.acceptTag,
+.revTag,
+.solvedTag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  white-space: nowrap;
+  line-height: 1.5;
+}
+
+.revTag {
+  color: #60a5fa;
+  border-color: rgba(96, 165, 250, 0.3);
+  background: rgba(96, 165, 250, 0.08);
+}
+
+.solvedTag {
+  color: #22c55e;
+  border-color: rgba(34, 197, 94, 0.3);
+  background: rgba(34, 197, 94, 0.08);
+}
+
+/* ── Action buttons ──────────────────────────────────────────── */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+  padding: 10px 10px 10px 0;
+  align-self: flex-start;
+}
+
+.actionBtn {
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: none;
+  border-radius: 7px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s;
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+
+.actionBtn:hover {
+  background: var(--bg-card);
+  filter: none;
+  opacity: 1;
+}
+
+.favActive  { filter: none !important; opacity: 1 !important; }
+.noteActive { filter: none !important; opacity: 1 !important; }

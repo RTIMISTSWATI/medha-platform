@@ -6,6 +6,7 @@ import CodeEditorPage  from "./pages/CodeEditorPage";
 import NotesPage       from "./pages/NotesPage";
 import PlannerPage     from "./pages/PlannerPage";
 import DashboardPage   from "./pages/DashboardPage";
+import QuestionsPage   from "./pages/QuestionsPage";
 
 export default function App() {
   return (
@@ -19,7 +20,7 @@ export default function App() {
             <Route path="/notes"      element={<NotesPage />} />
             <Route path="/planner"    element={<PlannerPage />} />
             <Route path="/dashboard"  element={<DashboardPage />} />
-            {/* Phase 5+ routes added here */}
+            <Route path="/questions"  element={<QuestionsPage />} />
           </Routes>
         </main>
       </div>
