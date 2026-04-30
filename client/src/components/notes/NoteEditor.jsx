@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import { SUBJECTS } from "../../constants/notes";
+import AINotesAssistant from "../ai/AINotesAssistant";
 import styles from "./NoteEditor.module.css";
 
 const TOOLBAR = [
@@ -71,6 +72,9 @@ export default function NoteEditor({
           </button>
         </div>
       </div>
+
+      {/* ── AI Assistant ── */}
+      <AINotesAssistant content={note.content} />
 
       {/* ── Title ── */}
       <input

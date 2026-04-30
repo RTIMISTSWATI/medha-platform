@@ -1,6 +1,7 @@
 import React from "react";
 import Editor from "@monaco-editor/react";
 import { useCodeEditor } from "../hooks/useCodeEditor";
+import AICodeAssistant from "./ai/AICodeAssistant";
 import styles from "./CodeEditor.module.css";
 
 const LANGUAGES = [
@@ -38,7 +39,7 @@ export default function CodeEditor() {
       </div>
 
       {/* ── Editor + I/O panel ── */}
-      <div className={styles.workspace}>
+      <div className={styles.workspace} style={{ flex: 1, minHeight: 0 }}>
         {/* Monaco Editor */}
         <div className={styles.editorPane}>
           <Editor
@@ -81,6 +82,9 @@ export default function CodeEditor() {
           </div>
         </div>
       </div>
+
+      {/* ── AI Code Assistant ── */}
+      <AICodeAssistant code={code} />
     </div>
   );
 }

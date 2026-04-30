@@ -6,6 +6,7 @@ import TaskForm from "../components/planner/TaskForm";
 import TaskList from "../components/planner/TaskList";
 import RoadmapGenerator from "../components/planner/RoadmapGenerator";
 import StudyHeatmap from "../components/planner/StudyHeatmap";
+import AIStudyPlanner from "../components/ai/AIStudyPlanner";
 import styles from "./PlannerPage.module.css";
 
 export default function PlannerPage() {
@@ -50,6 +51,7 @@ export default function PlannerPage() {
             onDelete={deleteTask}
             xpFlash={xpFlash}
           />
+          <AIStudyPlanner />
           <RoadmapGenerator />
         </div>
 
