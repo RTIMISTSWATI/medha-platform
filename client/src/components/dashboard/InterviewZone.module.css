@@ -43,7 +43,7 @@
 }
 
 .tab:hover { background: var(--bg-surface); color: var(--text); }
-.tabActive { background: var(--accent) !important; color: #fff !important; }
+.tabActive { background: var(--accent) !important; color: var(--text) !important; }
 
 /* ── DSA ─────────────────────────────────────────────────────── */
 .dsaList, .coreList { display: flex; flex-direction: column; gap: 10px; }
@@ -128,7 +128,7 @@
   border-radius: 5px; border: 2px solid var(--border);
   background: var(--bg-surface);
   display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 800; color: #fff;
+  font-size: 10px; font-weight: 800; color: var(--text);
   flex-shrink: 0; transition: all 0.12s;
 }
 
@@ -161,7 +161,7 @@
 
 .mockBtn {
   background: linear-gradient(135deg, #22c55e, #16a34a);
-  color: #fff; border: none;
+  color: var(--text); border: none;
   border-radius: 10px; padding: 11px 24px;
   font-size: 13px; font-weight: 700;
   transition: opacity 0.15s, transform 0.12s;

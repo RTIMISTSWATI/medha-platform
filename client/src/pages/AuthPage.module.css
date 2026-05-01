@@ -1,0 +1,619 @@
+/* ═══════════════════════════════════════════════════════════════
+   AuthPage — Cinematic Dark Academia · Refined Depth & Lighting
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Root ────────────────────────────────────────────────────── */
+.page {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: #0f0c0a;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LEFT — Background scene + content
+   ═══════════════════════════════════════════════════════════════ */
+.left {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Background image ────────────────────────────────────────── */
+/* Sharp cozy study room — desk, lamp, bookshelves               */
+/* brightness kept higher so the scene reads as a real room      */
+.bgImage {
+  position: absolute;
+  inset: 0;
+
+  /* ✅ USE YOUR LOCAL IMAGE */
+  background-image: url("../assets/login-bg.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* 🎯 Perfect cinematic tuning */
+  filter: brightness(0.5) contrast(1.05) saturate(0.9);
+  transform: scale(1.02);
+
+  z-index: 0;
+}
+
+/* ── Layer 1 — directional dark gradient ─────────────────────── */
+/* Left darker for text readability, right lighter for depth     */
+.bgOverlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to right,
+      rgba(10, 8, 6, 0.55) 0%,
+      rgba(10, 8, 6, 0.35) 45%,
+      rgba(10, 8, 6, 0.15) 100%
+    ),
+
+    radial-gradient(
+      circle at 35% 40%,
+      rgba(202, 168, 106, 0.22),
+      transparent 60%
+    ),
+
+    radial-gradient(
+      circle at center,
+      transparent 60%,
+      rgba(0, 0, 0, 0.45) 100%
+    );
+
+  z-index: 1;
+}
+/* ── Layer 2 — warm ambient radial (lamp simulation) ─────────── */
+.bgWarmRadial {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 30% 50%,
+    rgba(255, 200, 120, 0.12) 0%,
+    rgba(220, 160, 80, 0.06) 35%,
+    transparent 60%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Layer 3 — vignette edges ────────────────────────────────── */
+.bgVignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(8, 5, 3, 0.55) 100%
+  );
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ── Film grain ──────────────────────────────────────────────── */
+.bgGrain {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* ── Lamp glow — warm cone from upper-center-left ────────────── */
+/* Repositioned to feel like a desk lamp casting downward light  */
+.lampGlow {
+  position: absolute;
+  top: -10%;
+  left: 18%;
+  width: 65%;
+  height: 90%;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(255, 195, 100, 0.16) 0%,
+    rgba(220, 155, 60, 0.08) 30%,
+    transparent 65%
+  );
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ── Left content ────────────────────────────────────────────── */
+.leftContent {
+  position: relative;
+  z-index: 10;
+  max-width: 520px;
+  padding: 0 0 0 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  animation: contentIn 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes contentIn {
+  from { opacity: 0; transform: translateX(-18px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Subtle backdrop behind text block for readability             */
+/* .leftContent::before {
+  content: "";
+  position: absolute;
+  inset: -20px -24px;
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-radius: 14px;
+  z-index: -1;
+  pointer-events: none;
+} */
+
+/* ── Brand ───────────────────────────────────────────────────── */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brandName {
+  font-family: var(--font-display, "Playfair Display", Georgia, serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: #f2e6d0;
+  letter-spacing: 0.3px;
+  line-height: 1.1;
+}
+
+.brandTag {
+  font-size: 9.5px;
+  font-weight: 500;
+  color: #c2a878;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+/* ── Headline ────────────────────────────────────────────────── */
+.headline {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.headlineTitle {
+  font-family: var(--font-display, "Playfair Display", Georgia, serif);
+  font-size: 48px;
+  font-weight: 700;
+  color: #f2e6d0;
+  line-height: 1.18;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.headlineEm {
+  font-style: italic;
+  color: #c2a878;
+  /* Subtle warm text glow */
+  text-shadow: 0 0 30px rgba(194, 168, 120, 0.35);
+}
+
+.headlineSub {
+  font-size: 15px;
+  color: #b7a999;
+  line-height: 1.7;
+  max-width: 380px;
+}
+
+/* ── Feature cards ───────────────────────────────────────────── */
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.featureCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+
+  border-radius: 12px;
+
+  /* Softer glass */
+  background: rgba(255, 248, 235, 0.04);
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+
+  transition: all 0.25s ease;
+}
+
+.featureCard:hover {
+  background: rgba(255, 248, 235, 0.07);
+
+  transform: translateY(-3px);
+
+  border-color: rgba(202, 168, 106, 0.25);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    0 0 12px rgba(202, 168, 106, 0.08);
+}
+
+.featureIcon {
+  width: 36px;
+  height: 36px;
+
+  border-radius: 8px;
+
+  background: rgba(202, 168, 106, 0.15);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 0 10px rgba(202, 168, 106, 0.15);
+}
+
+.featureText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.featureLabel {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #e8dcc7;
+  line-height: 1.2;
+}
+
+.featureDesc {
+  font-size: 12px;
+  color: #b7a999;
+  line-height: 1.4;
+}
+
+/* ── Left quote ──────────────────────────────────────────────── */
+.leftQuote {
+  font-family: var(--font-display, "Playfair Display", Georgia, serif);
+  font-style: italic;
+  font-size: 13.5px;
+  color: rgba(183, 169, 153, 0.5);
+  padding-left: 16px;
+  border-left: 2px solid rgba(194, 168, 120, 0.25);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RIGHT — Glass login panel
+   ═══════════════════════════════════════════════════════════════ */
+.right {
+  width: 520px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 80px 40px 40px;
+  /* Subtle dark gradient so panel area has depth vs left scene  */
+  background: linear-gradient(
+    180deg,
+    rgba(10, 7, 4, 0.55) 0%,
+    rgba(12, 8, 5, 0.45) 100%
+  );
+  position: relative;
+}
+
+/* Warm ambient glow behind the card */
+.right::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(194, 168, 120, 0.07) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Glass card ──────────────────────────────────────────────── */
+.card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  padding: 36px 32px 30px;
+  border-radius: 20px;
+
+  background: rgba(20, 16, 12, 0.78);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+
+  border: 1px solid rgba(194, 168, 120, 0.2);
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.7),
+    0 0 40px rgba(194, 168, 120, 0.1),
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  animation: cardIn 0.55s cubic-bezier(0.34, 1.1, 0.64, 1) 0.1s both;
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(28px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* Gold shimmer line at top of card */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 15%; right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(194, 168, 120, 0.45), transparent);
+  border-radius: 99px;
+}
+
+/* ── Mode toggle ─────────────────────────────────────────────── */
+.modeToggle {
+  display: flex;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(194, 168, 120, 0.12);
+  border-radius: 11px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.modeBtn {
+  flex: 1;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #6b7a8d;
+  transition: background 0.18s, color 0.18s;
+  letter-spacing: 0.1px;
+}
+
+.modeBtn:hover { color: #c2a878; }
+
+.modeBtnActive {
+  background: rgba(194, 168, 120, 0.13) !important;
+  color: #c2a878 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Form header ─────────────────────────────────────────────── */
+.formHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.formTitle {
+  font-family: var(--font-display, "Playfair Display", Georgia, serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: #f2e6d0;
+  letter-spacing: -0.2px;
+  line-height: 1.2;
+}
+
+.formSub {
+  font-size: 13px;
+  color: #b7a999;
+  line-height: 1.5;
+}
+
+/* ── Form ────────────────────────────────────────────────────── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: #7a8fa8;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.input {
+  background: rgba(255, 248, 235, 0.04);
+  border: 1px solid rgba(194, 168, 120, 0.2);
+  border-radius: 9px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+  font-family: inherit;
+  color: #e8dcc7;
+  outline: none;
+  transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
+  height: 46px;
+}
+
+.input::placeholder { color: rgba(183, 169, 153, 0.4); }
+
+.input:focus {
+  border-color: #c2a878;
+  background: rgba(194, 168, 120, 0.05);
+  box-shadow: 0 0 0 3px rgba(194, 168, 120, 0.09);
+}
+
+/* ── Forgot ──────────────────────────────────────────────────── */
+.forgotRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -4px;
+}
+
+.forgotBtn {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: #6b7a8d;
+  transition: color 0.15s;
+}
+
+.forgotBtn:hover { color: #c2a878; }
+
+/* ── Submit ──────────────────────────────────────────────────── */
+.submitBtn {
+  background: #c2a878;
+  color: #0f0c0a;
+  border: none;
+  border-radius: 10px;
+  height: 48px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
+  box-shadow: 0 4px 20px rgba(194, 168, 120, 0.28);
+  margin-top: 2px;
+}
+
+.submitBtn:hover {
+  background: #d4bc90;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 28px rgba(194, 168, 120, 0.42);
+}
+
+.submitBtn:active { transform: translateY(0); }
+
+/* ── Divider ─────────────────────────────────────────────────── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background: rgba(194, 168, 120, 0.1);
+}
+
+.dividerText {
+  font-size: 11px;
+  color: #4a5e78;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+/* ── Guest ───────────────────────────────────────────────────── */
+.guestBtn {
+  background: transparent;
+  border: 1px solid rgba(194, 168, 120, 0.18);
+  border-radius: 10px;
+  height: 44px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #b7a999;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+
+.guestBtn:hover {
+  background: rgba(194, 168, 120, 0.07);
+  border-color: rgba(194, 168, 120, 0.35);
+  color: #c2a878;
+}
+
+/* ── Switch ──────────────────────────────────────────────────── */
+.switchText {
+  text-align: center;
+  font-size: 12.5px;
+  color: #4a5e78;
+}
+
+.switchBtn {
+  background: none;
+  border: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #c2a878;
+  transition: opacity 0.15s;
+}
+
+.switchBtn:hover { opacity: 0.75; }
+
+/* ═══════════════════════════════════════════════════════════════
+   Responsive
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .left { display: none; }
+
+  .right {
+    width: 100%;
+    padding: 40px 24px;
+    background: #0f0c0a;
+  }
+
+  .right::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background-image: url("../assets/login-bg.png");
+
+  background-size: cover;
+  background-position: center;
+
+  filter: brightness(0.28) saturate(0.8);
+  z-index: -1;
+}
+
+  .right::after { display: none; }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 28px 22px 24px;
+    border-radius: 16px;
+  }
+  .formTitle { font-size: 22px; }
+}
+
+@media (min-width: 1400px) {
+  .leftContent { padding-left: 100px; }
+  .headlineTitle { font-size: 54px; }
+}

@@ -73,7 +73,7 @@
 .xpPct {
   position: absolute; right: 6px; top: 50%;
   transform: translateY(-50%);
-  font-size: 9px; font-weight: 800; color: #fff;
+  font-size: 9px; font-weight: 800; color: var(--text);
 }
 
 /* ── Rank progression ────────────────────────────────────────── */

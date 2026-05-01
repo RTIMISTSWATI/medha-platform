@@ -83,7 +83,7 @@
 
 .filterBtn:hover { background: var(--bg-surface); color: var(--text); }
 
-.filterActive { background: var(--accent) !important; color: #fff !important; }
+.filterActive { background: var(--accent) !important; color: var(--text) !important; }
 
 /* Company dropdown */
 .companySelect {

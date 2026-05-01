@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: var(--bg-base);
+  background: transparent;
   overflow: hidden;
 }
 
@@ -12,7 +12,7 @@
   align-items: center;
   gap: 10px;
   padding: 10px 20px;
-  background: var(--bg-surface);
+  background: rgba(10, 24, 40, 0.7);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
@@ -26,11 +26,10 @@
   font-size: 13px;
   outline: none;
   cursor: pointer;
+  transition: border-color 0.15s;
 }
 
-.subjectSelect:focus {
-  border-color: var(--accent);
-}
+.subjectSelect:focus { border-color: var(--gold); }
 
 .topbarActions {
   display: flex;
@@ -50,45 +49,40 @@
   transition: all 0.15s;
 }
 
-.pinBtn:hover {
-  border-color: var(--warning);
-  color: var(--warning);
-}
+.pinBtn:hover { border-color: var(--gold); color: var(--gold); }
 
 .pinActive {
-  border-color: var(--warning) !important;
-  color: var(--warning) !important;
-  background: rgba(245, 158, 11, 0.1) !important;
+  border-color: var(--gold) !important;
+  color: var(--gold) !important;
+  background: var(--gold-dim) !important;
 }
 
 .saveBtn {
-  background: var(--accent);
-  color: #fff;
+  background: linear-gradient(135deg, var(--gold), var(--brand-amber));
+  color: var(--bg-base);
   border: none;
   border-radius: var(--radius);
   padding: 7px 18px;
   font-size: 13px;
-  font-weight: 600;
-  transition: background 0.15s;
+  font-weight: 700;
+  transition: opacity 0.15s, box-shadow 0.15s;
   min-width: 100px;
+  box-shadow: 0 2px 10px rgba(212, 163, 115, 0.25);
 }
 
 .saveBtn:hover:not(:disabled) {
-  background: var(--accent-hover);
+  opacity: 0.9;
+  box-shadow: 0 4px 16px rgba(212, 163, 115, 0.35);
 }
 
-.saveBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+.saveBtn:disabled { opacity: 0.45; cursor: not-allowed; }
 
 .saveBtnSaved {
-  background: var(--success) !important;
+  background: var(--green) !important;
+  box-shadow: 0 2px 10px rgba(77, 139, 106, 0.3) !important;
 }
 
-.saveBtnError {
-  background: var(--error) !important;
-}
+.saveBtnError { background: var(--error) !important; }
 
 /* ── Title ──────────────────────────────────────────────────── */
 .titleInput {
@@ -97,18 +91,23 @@
   border: none;
   border-bottom: 1px solid var(--border);
   color: var(--text);
+  font-family: var(--font-display);
   font-size: 22px;
   font-weight: 700;
   padding: 18px 24px 14px;
   outline: none;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.2px;
   flex-shrink: 0;
+  transition: border-color 0.15s;
 }
 
 .titleInput::placeholder {
-  color: var(--text-muted);
+  color: var(--text-soft);
   font-weight: 400;
+  font-family: var(--font-sans);
 }
+
+.titleInput:focus { border-bottom-color: var(--gold); }
 
 /* ── Quill wrapper ───────────────────────────────────────────── */
 .quillWrapper {
@@ -119,9 +118,8 @@
   min-height: 0;
 }
 
-/* Quill dark theme overrides */
 .quillWrapper :global(.ql-toolbar.ql-snow) {
-  background: var(--bg-surface);
+  background: rgba(10, 24, 40, 0.6);
   border-color: var(--border);
   border-left: none;
   border-right: none;
@@ -130,7 +128,7 @@
 }
 
 .quillWrapper :global(.ql-container.ql-snow) {
-  background: var(--bg-base);
+  background: transparent;
   border: none;
   flex: 1;
   overflow-y: auto;
@@ -139,72 +137,62 @@
 
 .quillWrapper :global(.ql-editor) {
   color: var(--text);
-  padding: 20px 24px;
+  padding: 22px 26px;
   min-height: 100%;
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .quillWrapper :global(.ql-editor.ql-blank::before) {
-  color: var(--text-muted);
+  color: var(--text-soft);
   font-style: italic;
-  left: 24px;
+  left: 26px;
 }
 
-/* Toolbar icon colors */
-.quillWrapper :global(.ql-stroke) {
-  stroke: var(--text-muted) !important;
-}
-
-.quillWrapper :global(.ql-fill) {
-  fill: var(--text-muted) !important;
-}
-
-.quillWrapper :global(.ql-picker-label) {
-  color: var(--text-muted) !important;
-}
+.quillWrapper :global(.ql-stroke) { stroke: var(--text-muted) !important; }
+.quillWrapper :global(.ql-fill)   { fill:   var(--text-muted) !important; }
+.quillWrapper :global(.ql-picker-label) { color: var(--text-muted) !important; }
 
 .quillWrapper :global(.ql-toolbar button:hover .ql-stroke),
 .quillWrapper :global(.ql-toolbar button.ql-active .ql-stroke) {
-  stroke: var(--accent) !important;
+  stroke: var(--gold) !important;
 }
 
 .quillWrapper :global(.ql-toolbar button:hover .ql-fill),
 .quillWrapper :global(.ql-toolbar button.ql-active .ql-fill) {
-  fill: var(--accent) !important;
+  fill: var(--gold) !important;
 }
 
 .quillWrapper :global(.ql-toolbar button:hover),
 .quillWrapper :global(.ql-toolbar button.ql-active) {
-  color: var(--accent) !important;
+  color: var(--gold) !important;
 }
 
 .quillWrapper :global(.ql-picker-options) {
-  background: var(--bg-surface) !important;
-  border-color: var(--border) !important;
+  background: var(--bg-elevated) !important;
+  border-color: var(--border-warm) !important;
 }
 
-.quillWrapper :global(.ql-picker-item) {
-  color: var(--text) !important;
-}
+.quillWrapper :global(.ql-picker-item) { color: var(--text) !important; }
 
-/* Editor content styles */
 .quillWrapper :global(.ql-editor h1),
 .quillWrapper :global(.ql-editor h2),
 .quillWrapper :global(.ql-editor h3) {
   color: var(--text);
-  margin: 16px 0 8px;
+  font-family: var(--font-display);
+  margin: 18px 0 8px;
 }
 
 .quillWrapper :global(.ql-editor blockquote) {
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid var(--gold);
   color: var(--text-muted);
   padding-left: 16px;
-  margin: 12px 0;
+  margin: 14px 0;
+  font-style: italic;
 }
 
 .quillWrapper :global(.ql-editor pre.ql-syntax) {
   background: var(--bg-card);
-  color: #a5f3fc;
+  color: var(--green-light);
   border-radius: var(--radius);
   padding: 14px 16px;
   font-family: var(--font-mono);
@@ -212,6 +200,4 @@
   border: 1px solid var(--border);
 }
 
-.quillWrapper :global(.ql-editor a) {
-  color: var(--accent);
-}
+.quillWrapper :global(.ql-editor a) { color: var(--gold); }

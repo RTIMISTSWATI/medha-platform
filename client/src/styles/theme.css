@@ -1,0 +1,333 @@
+/* ═══════════════════════════════════════════════════════════════
+   MEDHA — Dark Academia Design System
+   Theme: warm dark parchment, gold accents, scholarly elegance
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── CSS Custom Properties ───────────────────────────────────── */
+:root {
+  /* ── Core backgrounds — warm dark ── */
+  --bg-base:        #0f0c0a;
+  --bg-surface:     #141009;
+  --bg-card:        #17120d;
+  --bg-elevated:    #1c1610;
+  --bg-glass:       rgba(20, 16, 9, 0.75);
+  --bg-overlay:     rgba(15, 12, 10, 0.85);
+
+  /* ── Parchment text palette ── */
+  --text:           #e8dcc7;
+  --text-muted:     #a89b87;
+  --text-soft:      #6b5e4a;
+  --text-warm:      #c2a878;
+  --text-dim:       rgba(232, 220, 199, 0.45);
+
+  /* ── Gold accent system ── */
+  --gold:           #c2a878;
+  --gold-light:     #d9c4a0;
+  --gold-dark:      #9d864d;
+  --gold-dim:       rgba(194, 168, 120, 0.12);
+  --gold-glow:      rgba(194, 168, 120, 0.22);
+  --gold-border:    rgba(194, 168, 120, 0.18);
+
+  /* ── Olive / sage accent ── */
+  --olive:          #6b705c;
+  --olive-light:    #8d9378;
+  --olive-dim:      rgba(107, 112, 92, 0.15);
+
+  /* ── Warm copper for interactive ── */
+  --copper:         #b87333;
+  --copper-light:   #d4894a;
+  --copper-dim:     rgba(184, 115, 51, 0.12);
+
+  /* ── Borders ── */
+  --border:         rgba(194, 168, 120, 0.08);
+  --border-soft:    rgba(194, 168, 120, 0.05);
+  --border-warm:    rgba(194, 168, 120, 0.20);
+  --border-focus:   rgba(194, 168, 120, 0.50);
+
+  /* ── Status ── */
+  --success:        #5a7a5a;
+  --success-light:  #6d9b6d;
+  --error:          #9b4a4a;
+  --error-light:    #c26060;
+  --warning:        --gold;
+  --info:           #4a6b8a;
+
+  /* ── Shadows — warm and deep ── */
+  --shadow-xs:      0 1px 2px rgba(0,0,0,0.5);
+  --shadow-sm:      0 2px 8px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md:      0 4px 20px rgba(0,0,0,0.65), 0 2px 8px rgba(0,0,0,0.4);
+  --shadow-lg:      0 8px 40px rgba(0,0,0,0.75), 0 4px 16px rgba(0,0,0,0.5);
+  --shadow-gold:    0 4px 24px rgba(194, 168, 120, 0.12);
+  --shadow-glow:    0 0 0 1px rgba(194, 168, 120, 0.14), 0 4px 24px rgba(194, 168, 120, 0.08);
+
+  /* ── Border radius ── */
+  --radius-xs:      4px;
+  --radius-sm:      6px;
+  --radius:         10px;
+  --radius-lg:      16px;
+  --radius-xl:      22px;
+  --radius-full:    9999px;
+
+  /* ── Typography ── */
+  --font-sans:      "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-display:   "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-mono:      "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+
+  /* ── Font sizes ── */
+  --text-xs:        11px;
+  --text-sm:        13px;
+  --text-base:      14.5px;
+  --text-md:        16px;
+  --text-lg:        18px;
+  --text-xl:        22px;
+  --text-2xl:       28px;
+  --text-3xl:       36px;
+
+  /* ── Spacing ── */
+  --nav-h:          58px;
+  --page-pad:       28px;
+  --section-gap:    28px;
+  --card-pad:       22px;
+  --card-pad-sm:    16px;
+
+  /* ── Transitions ── */
+  --ease:           cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:       cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast:  120ms;
+  --duration:       200ms;
+  --duration-slow:  350ms;
+}
+
+/* ── Base Reset ──────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ── Body — radial gradient background ──────────────────────── */
+body {
+  background: var(--bg-base);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* Subtle ambient radial gradient — warm candle-light feel */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 5%,  rgba(194, 168, 120, 0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 85% 90%,  rgba(107, 112, 92,  0.04) 0%, transparent 55%),
+    radial-gradient(ellipse 90% 60% at 50% 50%,  rgba(15, 12, 10,    0.3)  0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Typography ──────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--text);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+p {
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+a {
+  color: var(--gold);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease);
+}
+
+a:hover {
+  color: var(--gold-light);
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--text);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+  outline: none;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(194, 168, 120, 0.08);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-soft);
+}
+
+pre, code {
+  font-family: var(--font-mono);
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(194, 168, 120, 0.14);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(194, 168, 120, 0.28);
+}
+
+/* ── Selection ───────────────────────────────────────────────── */
+::selection {
+  background: rgba(194, 168, 120, 0.22);
+  color: var(--text);
+}
+
+/* ── Focus ring ──────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid rgba(194, 168, 120, 0.45);
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Cards ───────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--card-pad);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--duration) var(--ease),
+              box-shadow var(--duration) var(--ease);
+}
+
+.card:hover {
+  border-color: var(--border-warm);
+  box-shadow: var(--shadow-gold);
+}
+
+/* ── Glass effect ────────────────────────────────────────────── */
+.glass {
+  background: var(--bg-glass);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--border-warm);
+}
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: var(--bg-base);
+  border: none;
+  border-radius: var(--radius);
+  padding: 10px 24px;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  transition: opacity var(--duration-fast), transform var(--duration-fast),
+              box-shadow var(--duration-fast);
+  box-shadow: 0 4px 16px rgba(194, 168, 120, 0.28);
+}
+
+.btn-primary:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(194, 168, 120, 0.38);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--border-warm);
+  color: var(--text-warm);
+  border-radius: var(--radius);
+  padding: 9px 20px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: background var(--duration-fast), border-color var(--duration-fast),
+              color var(--duration-fast);
+}
+
+.btn-ghost:hover {
+  background: var(--gold-dim);
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+
+/* ── Section headings ────────────────────────────────────────── */
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.section-subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ── Divider ─────────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── Badge ───────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  background: var(--gold-dim);
+  color: var(--gold);
+  border: 1px solid var(--gold-border);
+}

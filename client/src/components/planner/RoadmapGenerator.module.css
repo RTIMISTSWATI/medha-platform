@@ -112,12 +112,12 @@
 .hourActive {
   background: var(--accent) !important;
   border-color: var(--accent) !important;
-  color: #fff !important;
+  color: var(--text) !important;
 }
 
 .generateBtn {
   background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  color: #fff;
+  color: var(--text);
   border: none;
   border-radius: 9px;
   padding: 10px 24px;

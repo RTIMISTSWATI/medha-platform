@@ -7,17 +7,17 @@
 }
 
 :root {
-  /* ── Core palette — Dark Academia ── */
-  --bg-base:        #07152D;
-  --bg-surface:     #0D1F3C;
-  --bg-card:        #0A1828;
-  --bg-elevated:    #112240;
-  --bg-glass:       rgba(13, 31, 60, 0.7);
+  /* ── Core palette — Dark Academia (warm dark, not blue) ── */
+  --bg-base:        #0f0c0a;
+  --bg-surface:     #141009;
+  --bg-card:        #17120d;
+  --bg-elevated:    #1c1610;
+  --bg-glass:       rgba(20, 16, 9, 0.75);
 
   /* ── Borders ── */
-  --border:         rgba(212, 163, 115, 0.1);
-  --border-soft:    rgba(212, 163, 115, 0.06);
-  --border-warm:    rgba(212, 163, 115, 0.22);
+  --border:         rgba(194, 168, 120, 0.08);
+  --border-soft:    rgba(194, 168, 120, 0.05);
+  --border-warm:    rgba(194, 168, 120, 0.18);
 
   /* ── Text ── */
   --text:           #F5EDE3;
@@ -26,10 +26,10 @@
   --text-warm:      #D4A373;
 
   /* ── Gold accent system ── */
-  --gold:           #D4A373;
-  --gold-light:     #E8C49A;
-  --gold-dim:       rgba(212, 163, 115, 0.15);
-  --gold-glow:      rgba(212, 163, 115, 0.25);
+  --gold:           #c2a878;
+  --gold-light:     #d9c4a0;
+  --gold-dim:       rgba(194, 168, 120, 0.12);
+  --gold-glow:      rgba(194, 168, 120, 0.22);
 
   /* ── Forest green accent ── */
   --green:          #4D8B6A;

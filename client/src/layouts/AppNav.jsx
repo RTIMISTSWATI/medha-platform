@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./AppNav.module.css";
 
 // ── Inline SVG mascot ─────────────────────────────────────────
@@ -84,6 +84,12 @@ const NAV_ITEMS = [
 // ── Component ─────────────────────────────────────────────────
 export default function AppNav() {
   const [searchOpen, setSearchOpen] = useState(false);
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    localStorage.removeItem("medha_auth");
+    navigate("/");
+  }
 
   return (
     <header className={styles.nav}>
@@ -137,6 +143,18 @@ export default function AppNav() {
         {/* Profile avatar */}
         <button className={styles.avatar} title="Profile" aria-label="Profile">
           <span className={styles.avatarEmoji}>🦉</span>
+        </button>
+
+        {/* Logout */}
+        <button
+          className={styles.iconBtn}
+          onClick={handleLogout}
+          title="Sign out"
+          aria-label="Sign out"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M11 11l3-3-3-3M14 8H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
         </button>
 
       </div>

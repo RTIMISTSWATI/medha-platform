@@ -125,7 +125,7 @@
 .hourActive {
   background: var(--accent) !important;
   border-color: var(--accent) !important;
-  color: #fff !important;
+  color: var(--text) !important;
 }
 
 /* ── Weak topics ─────────────────────────────────────────────── */
@@ -213,7 +213,7 @@
   justify-content: center;
   gap: 8px;
   background: linear-gradient(135deg, #7c3aed, #4f46e5);
-  color: #fff;
+  color: var(--text);
   border: none;
   border-radius: 9px;
   padding: 11px 28px;
@@ -235,7 +235,7 @@
   width: 14px;
   height: 14px;
   border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: #fff;
+  border-top-color: var(--text);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
   display: inline-block;
