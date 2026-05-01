@@ -8,7 +8,23 @@
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background: #0f0c0a;
+
+  /* ✅ FIX: Background image now covers the ENTIRE page (both left & right) */
+  background-image: url("../assets/login-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+/* ✅ FIX: Global dark overlay sits on top of the full-page bg image */
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 5, 3, 0.55);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -20,27 +36,13 @@
   overflow: hidden;
   display: flex;
   align-items: center;
+  z-index: 1;
 }
 
-/* ── Background image ────────────────────────────────────────── */
-/* Sharp cozy study room — desk, lamp, bookshelves               */
-/* brightness kept higher so the scene reads as a real room      */
+/* ── Background image — REMOVED (now on .page) ───────────────── */
+/* .bgImage is kept for backward compat but is now a no-op layer */
 .bgImage {
-  position: absolute;
-  inset: 0;
-
-  /* ✅ USE YOUR LOCAL IMAGE */
-  background-image: url("../assets/login-bg.png");
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  /* 🎯 Perfect cinematic tuning */
-  filter: brightness(0.5) contrast(1.05) saturate(0.9);
-  transform: scale(1.02);
-
-  z-index: 0;
+  display: none; /* ✅ FIX: No longer needed — bg is on .page */
 }
 
 /* ── Layer 1 — directional dark gradient ─────────────────────── */
@@ -50,27 +52,31 @@
   inset: 0;
 
   background:
+    /* Base dark gradient */
     linear-gradient(
       to right,
-      rgba(10, 8, 6, 0.55) 0%,
-      rgba(10, 8, 6, 0.35) 45%,
-      rgba(10, 8, 6, 0.15) 100%
+      rgba(10, 8, 6, 0.65) 0%,
+      rgba(10, 8, 6, 0.45) 45%,
+      rgba(10, 8, 6, 0.2) 100%
     ),
 
+    /* Subtle warm light */
     radial-gradient(
-      circle at 35% 40%,
-      rgba(202, 168, 106, 0.22),
-      transparent 60%
+      circle at 25% 50%,
+      rgba(202, 168, 106, 0.12),
+      transparent 70%
     ),
 
+    /* Edge vignette */
     radial-gradient(
       circle at center,
       transparent 60%,
-      rgba(0, 0, 0, 0.45) 100%
+      rgba(0, 0, 0, 0.5) 100%
     );
 
   z-index: 1;
 }
+
 /* ── Layer 2 — warm ambient radial (lamp simulation) ─────────── */
 .bgWarmRadial {
   position: absolute;
@@ -110,7 +116,6 @@
 }
 
 /* ── Lamp glow — warm cone from upper-center-left ────────────── */
-/* Repositioned to feel like a desk lamp casting downward light  */
 .lampGlow {
   position: absolute;
   top: -10%;
@@ -143,19 +148,6 @@
   from { opacity: 0; transform: translateX(-18px); }
   to   { opacity: 1; transform: translateX(0); }
 }
-
-/* Subtle backdrop behind text block for readability             */
-/* .leftContent::before {
-  content: "";
-  position: absolute;
-  inset: -20px -24px;
-  background: rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  border-radius: 14px;
-  z-index: -1;
-  pointer-events: none;
-} */
 
 /* ── Brand ───────────────────────────────────────────────────── */
 .brand {
@@ -208,7 +200,6 @@
 .headlineEm {
   font-style: italic;
   color: #c2a878;
-  /* Subtle warm text glow */
   text-shadow: 0 0 30px rgba(194, 168, 120, 0.35);
 }
 
@@ -234,7 +225,6 @@
 
   border-radius: 12px;
 
-  /* Softer glass */
   background: rgba(255, 248, 235, 0.04);
 
   backdrop-filter: blur(4px);
@@ -308,19 +298,17 @@
    RIGHT — Glass login panel
    ═══════════════════════════════════════════════════════════════ */
 .right {
-  width: 520px;
-  flex-shrink: 0;
+  flex: 0.8;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 80px 40px 40px;
-  /* Subtle dark gradient so panel area has depth vs left scene  */
-  background: linear-gradient(
-    180deg,
-    rgba(10, 7, 4, 0.55) 0%,
-    rgba(12, 8, 5, 0.45) 100%
-  );
+
   position: relative;
+  z-index: 1;       /* ✅ FIX: Sits above the page::before overlay */
+  padding: 40px;
+
+  /* ✅ FIX: No background — the page bg image shows through */
+  background: transparent;
 }
 
 /* Warm ambient glow behind the card */
@@ -351,11 +339,12 @@
   padding: 36px 32px 30px;
   border-radius: 20px;
 
-  background: rgba(20, 16, 12, 0.78);
-  backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  /* ✅ FIX: Slightly more opaque to match image 2's warm glass look */
+  background: rgba(20, 14, 8, 0.55);
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
 
-  border: 1px solid rgba(194, 168, 120, 0.2);
+  border: 1px solid rgba(194, 168, 120, 0.22);
 
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.7),
@@ -385,35 +374,44 @@
   border-radius: 99px;
 }
 
-/* ── Mode toggle ─────────────────────────────────────────────── */
+/* Toggle container */
 .modeToggle {
   display: flex;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(194, 168, 120, 0.12);
-  border-radius: 11px;
-  padding: 3px;
-  gap: 3px;
+  gap: 6px;
+  padding: 4px;
+
+  background: transparent;
+  border: none;
+  backdrop-filter: none;
 }
 
+/* Default buttons */
 .modeBtn {
   flex: 1;
-  background: none;
+  padding: 10px 0;
+  border-radius: 10px;
+
+  background: transparent;
   border: none;
-  border-radius: 8px;
-  padding: 9px 14px;
-  font-size: 12.5px;
-  font-weight: 600;
-  color: #6b7a8d;
-  transition: background 0.18s, color 0.18s;
-  letter-spacing: 0.1px;
+
+  color: rgba(255, 248, 235, 0.6);
+  transition: all 0.25s ease;
 }
 
-.modeBtn:hover { color: #c2a878; }
+.modeBtn:hover {
+  color: #f3e6c9;
+}
 
+/* ACTIVE button */
 .modeBtnActive {
-  background: rgba(194, 168, 120, 0.13) !important;
-  color: #c2a878 !important;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  color: #f3e6c9;
+
+  background: rgba(194, 168, 120, 0.08);
+
+  border: 1px solid rgba(194, 168, 120, 0.25);
+
+  box-shadow:
+    0 0 12px rgba(202, 168, 106, 0.2);
 }
 
 /* ── Form header ─────────────────────────────────────────────── */
@@ -460,24 +458,19 @@
 }
 
 .input {
-  background: rgba(255, 248, 235, 0.04);
-  border: 1px solid rgba(194, 168, 120, 0.2);
-  border-radius: 9px;
-  padding: 12px 14px;
-  font-size: 13.5px;
-  font-family: inherit;
-  color: #e8dcc7;
-  outline: none;
-  transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
-  height: 46px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  color: #f5efe6;
+
+  transition: all 0.2s ease;
 }
 
 .input::placeholder { color: rgba(183, 169, 153, 0.4); }
 
 .input:focus {
-  border-color: #c2a878;
-  background: rgba(194, 168, 120, 0.05);
-  box-shadow: 0 0 0 3px rgba(194, 168, 120, 0.09);
+  border-color: rgba(202, 168, 106, 0.6);
+  box-shadow: 0 0 10px rgba(202, 168, 106, 0.2);
 }
 
 /* ── Forgot ──────────────────────────────────────────────────── */
@@ -585,24 +578,18 @@
   .right {
     width: 100%;
     padding: 40px 24px;
-    background: #0f0c0a;
+    /* ✅ FIX: No solid background — the page bg image now handles it */
+    background: transparent;
   }
 
-  .right::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-
-  background-image: url("../assets/login-bg.png");
-
-  background-size: cover;
-  background-position: center;
-
-  filter: brightness(0.28) saturate(0.8);
-  z-index: -1;
-}
-
+  /* ✅ FIX: Removed the ::before pseudo bg image from .right on mobile
+     since .page already has the bg image covering everything          */
   .right::after { display: none; }
+
+  /* ✅ FIX: Darken overlay for mobile readability via page::before    */
+  .page::before {
+    background: rgba(8, 5, 3, 0.65); /* slightly darker on mobile */
+  }
 }
 
 @media (max-width: 480px) {
