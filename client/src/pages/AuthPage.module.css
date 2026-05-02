@@ -9,7 +9,7 @@
   width: 100vw;
   overflow: hidden;
 
-  /* ✅ FIX: Background image now covers the ENTIRE page (both left & right) */
+  /*Background image now covers the ENTIRE page (both left & right) */
   background-image: url("../assets/login-bg.png");
   background-size: cover;
   background-position: center;
@@ -17,7 +17,7 @@
   position: relative;
 }
 
-/* ✅ FIX: Global dark overlay sits on top of the full-page bg image */
+/*Global dark overlay sits on top of the full-page bg image */
 .page::before {
   content: "";
   position: absolute;
@@ -42,7 +42,7 @@
 /* ── Background image — REMOVED (now on .page) ───────────────── */
 /* .bgImage is kept for backward compat but is now a no-op layer */
 .bgImage {
-  display: none; /* ✅ FIX: No longer needed — bg is on .page */
+  display: none; /*No longer needed — bg is on .page */
 }
 
 /* ── Layer 1 — directional dark gradient ─────────────────────── */
@@ -304,10 +304,10 @@
   justify-content: center;
 
   position: relative;
-  z-index: 1;       /* ✅ FIX: Sits above the page::before overlay */
+  z-index: 1;       /*  Sits above the page::before overlay */
   padding: 40px;
 
-  /* ✅ FIX: No background — the page bg image shows through */
+  /* No background — the page bg image shows through */
   background: transparent;
 }
 
@@ -339,7 +339,7 @@
   padding: 36px 32px 30px;
   border-radius: 20px;
 
-  /* ✅ FIX: Slightly more opaque to match image 2's warm glass look */
+  /* Slightly more opaque to match image 2's warm glass look */
   background: rgba(20, 14, 8, 0.55);
   backdrop-filter: blur(24px) saturate(1.5);
   -webkit-backdrop-filter: blur(24px) saturate(1.5);
@@ -582,11 +582,11 @@
     background: transparent;
   }
 
-  /* ✅ FIX: Removed the ::before pseudo bg image from .right on mobile
+  /* Removed the ::before pseudo bg image from .right on mobile
      since .page already has the bg image covering everything          */
   .right::after { display: none; }
 
-  /* ✅ FIX: Darken overlay for mobile readability via page::before    */
+  /*  Darken overlay for mobile readability via page::before    */
   .page::before {
     background: rgba(8, 5, 3, 0.65); /* slightly darker on mobile */
   }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import styles from "./AppNav.module.css";
 
 // ── Inline SVG mascot ─────────────────────────────────────────
@@ -84,10 +85,11 @@ const NAV_ITEMS = [
 // ── Component ─────────────────────────────────────────────────
 export default function AppNav() {
   const [searchOpen, setSearchOpen] = useState(false);
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
 
   function handleLogout() {
-    localStorage.removeItem("medha_auth");
+    logout();
     navigate("/");
   }
 
@@ -141,7 +143,7 @@ export default function AppNav() {
         <div className={styles.rightDivider} />
 
         {/* Profile avatar */}
-        <button className={styles.avatar} title="Profile" aria-label="Profile">
+        <button className={styles.avatar} title={`Logout (${user?.name || 'User'})`} onClick={handleLogout} aria-label="Logout">
           <span className={styles.avatarEmoji}>🦉</span>
         </button>
 

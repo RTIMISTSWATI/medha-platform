@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 //import bg from "../assets/login-bg.png";
 import styles from "./AuthPage.module.css";
 
@@ -44,11 +45,26 @@ export default function AuthPage() {
   const [password, setPassword] = useState("");
   const [name,     setName]     = useState("");
   const navigate = useNavigate();
+  const { login, isAuthenticated } = useAuth();
+
+  // Auto redirect if already logged in
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    localStorage.setItem("medha_auth", "true");
-    if (name) localStorage.setItem("medha_user_name", name);
+    // Call login with form data
+    login({ email, name });
+    // Navigate to dashboard
+    navigate("/dashboard");
+  }
+
+  function handleGuestLogin() {
+    // Login as guest
+    login({ email: "guest@medha.com", name: "Guest User" });
     navigate("/dashboard");
   }
 
@@ -208,10 +224,7 @@ export default function AuthPage() {
           {/* Guest */}
           <button
             className={styles.guestBtn}
-            onClick={() => {
-              localStorage.setItem("medha_auth", "true");
-              navigate("/dashboard");
-            }}
+            onClick={handleGuestLogin}
           >
             👤 Continue as Guest
           </button>

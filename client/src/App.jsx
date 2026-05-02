@@ -8,19 +8,7 @@ import NotesPage      from "./pages/NotesPage";
 import PlannerPage    from "./pages/PlannerPage";
 import DashboardPage  from "./pages/DashboardPage";
 import QuestionsPage  from "./pages/QuestionsPage";
-
-// ── Simple localStorage-based auth check ─────────────────────
-function isAuthenticated() {
-  return localStorage.getItem("medha_auth") === "true";
-}
-
-// ── Protected Route wrapper ───────────────────────────────────
-function ProtectedRoute({ children }) {
-  if (!isAuthenticated()) {
-    return <Navigate to="/" replace />;
-  }
-  return children;
-}
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 // ── App shell with nav + main content ────────────────────────
 function AppShell({ children }) {
