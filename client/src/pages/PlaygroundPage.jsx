@@ -1,11 +1,12 @@
 // UPDATED
-import React, { useState, useMemo, useEffect, useRef } from "react"; // ADDED useEffect, useRef
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import Editor from "@monaco-editor/react";
 import { useCodeEditor } from "../hooks/useCodeEditor";
 import AICodeAssistant from "../components/ai/AICodeAssistant";
+import AIAssistant     from "../components/ai/AIAssistant"; // ADDED
 import styles from "./PlaygroundPage.module.css";
 
-// ── Problems data (unchanged) ─────────────────────────────────
+// ── Problems data ─────────────────────────────────────────────
 const PROBLEMS = [
   {
     id: 1,
@@ -48,7 +49,6 @@ const PROBLEMS = [
   },
 ];
 
-// UPDATED: richer difficulty color map
 const DIFF_COLOR = { Easy: "#6aaf8a", Medium: "#e6c48a", Hard: "#e07070" };
 
 // ── Left panel — problem sidebar ──────────────────────────────
@@ -57,13 +57,10 @@ function ProblemPanel({ problem, activeProblem, onSelect, problems }) {
 
   return (
     <div className={styles.panel}>
-
-      {/* UPDATED: sidebar header */}
       <div className={styles.sidebarHeader}>
         <span className={styles.sidebarTitle}>Problems</span>
       </div>
 
-      {/* ADDED: problem list (replaces dropdown) */}
       <div className={styles.problemList}>
         {problems.map((p) => (
           <button
@@ -80,7 +77,6 @@ function ProblemPanel({ problem, activeProblem, onSelect, problems }) {
         ))}
       </div>
 
-      {/* Active problem detail */}
       <div className={styles.problemMeta}>
         <h2 className={styles.problemTitle}>{problem.title}</h2>
         <div className={styles.problemTags}>
@@ -91,7 +87,6 @@ function ProblemPanel({ problem, activeProblem, onSelect, problems }) {
         </div>
       </div>
 
-      {/* Tabs */}
       <div className={styles.tabs}>
         {["description", "examples", "constraints"].map((t) => (
           <button
@@ -104,7 +99,6 @@ function ProblemPanel({ problem, activeProblem, onSelect, problems }) {
         ))}
       </div>
 
-      {/* Tab content */}
       <div className={styles.tabContent}>
         {tab === "description" && (
           <p className={styles.description}>{problem.description}</p>
@@ -141,14 +135,12 @@ function ProblemPanel({ problem, activeProblem, onSelect, problems }) {
 // ── Main PlaygroundPage ───────────────────────────────────────
 export default function PlaygroundPage() {
   const [activeProblem, setActiveProblem] = useState(PROBLEMS[0]);
+  const [focusMode,     setFocusMode]     = useState(false);
+  const [execTime,      setExecTime]      = useState(null);
+  const [startTime,     setStartTime]     = useState(null); // eslint-disable-line no-unused-vars
 
-  // ADDED: focus mode state
-  const [focusMode, setFocusMode] = useState(false);
-
-  // ADDED: ref for the workspace element — avoids re-renders on mouse move
   const workspaceRef = useRef(null);
 
-  // ADDED: mouse-follow glow via CSS custom properties — zero re-renders
   useEffect(() => {
     const el = workspaceRef.current;
     if (!el) return;
@@ -160,10 +152,6 @@ export default function PlaygroundPage() {
     el.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => el.removeEventListener("mousemove", handleMouseMove);
   }, []);
-
-  // ADDED: execution time tracking for output card
-  const [execTime, setExecTime] = useState(null);
-  const [startTime, setStartTime] = useState(null);
 
   const {
     language, code, customInput, output, isError, isRunning,
@@ -177,7 +165,6 @@ export default function PlaygroundPage() {
     setExecTime(null);
   };
 
-  // ADDED: wrap runCode to measure execution time
   const handleRun = async () => {
     const t0 = performance.now();
     setStartTime(t0);
@@ -186,7 +173,6 @@ export default function PlaygroundPage() {
     setExecTime(Math.round(performance.now() - t0));
   };
 
-  // ADDED: derive output status
   const outputStatus = useMemo(() => {
     if (!output && execTime === null) return "idle";
     return isError ? "error" : "accepted";
@@ -212,7 +198,6 @@ export default function PlaygroundPage() {
 
       {/* ── Center: Code editor ── */}
       <div className={`${styles.panel} ${styles.centerPanel}`}>
-        {/* UPDATED: richer toolbar */}
         <div className={styles.toolbar}>
           <div className={styles.toolbarLeft}>
             <span className={styles.langLabel}>🐍 Python 3</span>
@@ -225,7 +210,6 @@ export default function PlaygroundPage() {
           >
             {isRunning ? "▶ Running…" : "▶ Run Code"}
           </button>
-          {/* ADDED: focus mode toggle */}
           <button
             className={`${styles.focusBtn} ${focusMode ? styles.focusBtnActive : ""}`}
             onClick={() => setFocusMode((v) => !v)}
@@ -235,7 +219,6 @@ export default function PlaygroundPage() {
           </button>
         </div>
 
-        {/* Monaco editor */}
         <div className={styles.editorWrap}>
           <Editor
             height="100%"
@@ -255,20 +238,16 @@ export default function PlaygroundPage() {
           />
         </div>
 
-        {/* AI assistant */}
         <AICodeAssistant code={code} />
       </div>
 
       {/* ── Right: Output panel ── */}
       <div className={styles.panel}>
-
-        {/* ADDED: output header with status badge */}
         <div className={styles.outputHeader}>
           <span className={styles.outputHeaderTitle}>Output</span>
           <span className={`${styles.statusBadge} ${statusClass}`}>{statusLabel}</span>
         </div>
 
-        {/* ADDED: runtime / memory stats */}
         <div className={styles.outputMeta}>
           <div className={styles.metaStat}>
             <span className={styles.metaStatLabel}>Runtime</span>
@@ -282,7 +261,6 @@ export default function PlaygroundPage() {
           </div>
         </div>
 
-        {/* Custom input */}
         <div className={styles.ioSection}>
           <label className={styles.ioLabel}>Custom Input</label>
           <textarea
@@ -294,7 +272,6 @@ export default function PlaygroundPage() {
           />
         </div>
 
-        {/* Output */}
         <div className={styles.ioSection}>
           <label className={`${styles.ioLabel} ${isError ? styles.labelError : ""}`}>
             {isError ? "⚠ Error" : "✓ Output"}
@@ -303,8 +280,11 @@ export default function PlaygroundPage() {
             {output || <span className={styles.placeholder}>Run your code to see output…</span>}
           </pre>
         </div>
-
       </div>
+
+      {/* ADDED: floating AI chat assistant */}
+      <AIAssistant code={code} />
+
     </div>
   );
 }
