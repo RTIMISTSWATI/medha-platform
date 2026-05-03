@@ -6,6 +6,7 @@ import SkillGapAnalyzer from "../components/dashboard/SkillGapAnalyzer";
 import ResumeTracker    from "../components/dashboard/ResumeTracker";
 import InterviewZone    from "../components/dashboard/InterviewZone";
 import GamificationPanel from "../components/dashboard/GamificationPanel";
+import WeeklyChart      from "../components/dashboard/WeeklyChart"; // ADDED
 import styles from "./DashboardPage.module.css";
 
 export default function DashboardPage() {
@@ -58,6 +59,7 @@ export default function DashboardPage() {
       {/* ── Section B: Charts ── */}
       <section className={styles.section}>
         <ProgressCharts stats={stats} />
+        <WeeklyChart data={stats.weeklyData || []} /> {/* ADDED */}
       </section>
 
       {/* ── Section C + D: Skill Gap + Resume ── */}
