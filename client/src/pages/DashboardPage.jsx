@@ -8,6 +8,7 @@ import InterviewZone    from "../components/dashboard/InterviewZone";
 import GamificationPanel from "../components/dashboard/GamificationPanel";
 import WeeklyChart      from "../components/dashboard/WeeklyChart"; // ADDED
 import { getDailyQuote } from "../utils/getDailyQuote"; // ADDED
+import { getInsights }   from "../utils/getInsights";   // ADDED
 import styles from "./DashboardPage.module.css";
 
 export default function DashboardPage() {
@@ -23,7 +24,8 @@ export default function DashboardPage() {
     mockDone, incrementMock,
   } = useDashboard();
 
-  const quote = getDailyQuote(); // ADDED
+  const quote    = getDailyQuote();    // ADDED
+  const insights = getInsights(stats); // ADDED
 
   const greeting = () => {
     const h = new Date().getHours();
@@ -90,6 +92,17 @@ export default function DashboardPage() {
         <ProgressCharts stats={stats} />
         <WeeklyChart data={stats.weeklyData || []} /> {/* ADDED */}
       </section>
+
+      {/* ── Smart Insights ── */}
+      {/* ADDED */}
+      <div className={styles.insightCard}>
+        <p className={styles.insightTitle}>💡 Smart Insights</p>
+        <ul className={styles.insightList}>
+          {insights.map((msg, i) => (
+            <li key={i} className={styles.insightItem}>{msg}</li>
+          ))}
+        </ul>
+      </div>
 
       {/* ── Section C + D: Skill Gap + Resume ── */}
       <section className={styles.twoCol}>
