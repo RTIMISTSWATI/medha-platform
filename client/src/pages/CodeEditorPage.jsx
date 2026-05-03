@@ -1,6 +1,7 @@
+// UPDATED
 import React from "react";
-import CodeEditor from "../components/CodeEditor";
+import PlaygroundPage from "./PlaygroundPage";
 
 export default function CodeEditorPage() {
-  return <CodeEditor />;
+  return <PlaygroundPage />;
 }
