@@ -10,6 +10,7 @@ import DashboardPage  from "./pages/DashboardPage";
 import QuestionsPage  from "./pages/QuestionsPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { requestNotificationPermission, checkReminders } from "./utils/reminderService"; // ADDED
+import SpotifyPlayer from "./components/SpotifyPlayer"; // ADDED
 
 // ── App shell with nav + main content ────────────────────────
 function AppShell({ children }) {
@@ -17,6 +18,7 @@ function AppShell({ children }) {
     <div className="app">
       <AppNav />
       <main className="appMain">{children}</main>
+      <SpotifyPlayer /> {/* ADDED: floating player, only on authenticated routes */}
     </div>
   );
 }
