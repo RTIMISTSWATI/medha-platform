@@ -1,0 +1,23 @@
+// ADDED
+export const MOTIVATION_QUOTES = [
+  "The secret of getting ahead is getting started. — Mark Twain",
+  "An investment in knowledge pays the best interest. — Benjamin Franklin",
+  "The expert in anything was once a beginner. — Helen Hayes",
+  "It always seems impossible until it's done. — Nelson Mandela",
+  "Don't watch the clock; do what it does. Keep going. — Sam Levenson",
+  "Success is the sum of small efforts, repeated day in and day out. — Robert Collier",
+  "The only way to do great work is to love what you do. — Steve Jobs",
+  "Consistency is the hallmark of the unimaginative. Just kidding — be consistent.",
+  "First, solve the problem. Then, write the code. — John Johnson",
+  "Code is like humor. When you have to explain it, it's bad. — Cory House",
+  "The best time to plant a tree was 20 years ago. The second best time is now.",
+  "Why do programmers prefer dark mode? Because light attracts bugs. 🐛",
+  "A bug in the code is worth two in the documentation. Keep debugging!",
+  "Your only limit is your mind. And maybe your RAM. 💻",
+  "Every line of code you write today is a step closer to your dream job.",
+  "Debugging: being the detective in a crime movie where you are also the murderer.",
+  "Push yourself, because no one else is going to do it for you.",
+  "Dream big. Start small. Act now. Repeat.",
+  "The difference between ordinary and extraordinary is that little extra.",
+  "Hard work beats talent when talent doesn't work hard. — Tim Notke",
+];

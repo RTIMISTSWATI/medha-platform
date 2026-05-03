@@ -7,6 +7,7 @@ import ResumeTracker    from "../components/dashboard/ResumeTracker";
 import InterviewZone    from "../components/dashboard/InterviewZone";
 import GamificationPanel from "../components/dashboard/GamificationPanel";
 import WeeklyChart      from "../components/dashboard/WeeklyChart"; // ADDED
+import { getDailyQuote } from "../utils/getDailyQuote"; // ADDED
 import styles from "./DashboardPage.module.css";
 
 export default function DashboardPage() {
@@ -22,6 +23,8 @@ export default function DashboardPage() {
     mockDone, incrementMock,
   } = useDashboard();
 
+  const quote = getDailyQuote(); // ADDED
+
   const greeting = () => {
     const h = new Date().getHours();
     if (h < 12) return "Good morning";
@@ -31,6 +34,32 @@ export default function DashboardPage() {
 
   return (
     <div className={styles.page}>
+
+      {/* ── Daily quote ── */}
+      {/* ADDED */}
+      <div className={styles.quoteBox}>
+        <p>"{quote}"</p>
+      </div>
+
+      {/* ── Streak card ── */}
+      {/* ADDED */}
+      {(() => {
+        const streakCount = stats.streak ?? streak.count ?? 0;
+        const streakMsg =
+          streakCount === 0 ? "Start your streak today 🚀" :
+          streakCount < 3   ? "Good start, keep it going!" :
+          streakCount < 7   ? "You're building momentum 🔥" :
+                              "You're unstoppable 💪";
+        return (
+          <div className={styles.streakCard}>
+            <span className={styles.streakIcon}>🔥</span>
+            <div>
+              <span className={styles.streakCount}>{streakCount} Day Streak</span>
+              <span className={styles.streakMsg}>{streakMsg}</span>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* ── Hero header ── */}
       <header className={styles.hero}>
