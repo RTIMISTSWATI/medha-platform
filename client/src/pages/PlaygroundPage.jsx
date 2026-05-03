@@ -242,10 +242,20 @@ export default function PlaygroundPage() {
       </div>
 
       {/* ── Right: Output panel ── */}
-      <div className={styles.panel}>
+      <div className={`${styles.panel} ${styles.outputPanel} ${isRunning ? styles.outputRunning : ""} ${outputStatus === "accepted" ? styles.outputSuccess : ""} ${outputStatus === "error" ? styles.outputError : ""}`}>
         <div className={styles.outputHeader}>
           <span className={styles.outputHeaderTitle}>Output</span>
           <span className={`${styles.statusBadge} ${statusClass}`}>{statusLabel}</span>
+          {/* ADDED: run feedback badge */}
+          {isRunning && (
+            <span className={styles.runBadge}>⏳ Running…</span>
+          )}
+          {!isRunning && outputStatus === "accepted" && (
+            <span className={`${styles.runBadge} ${styles.runBadgeSuccess}`}>✅ Accepted</span>
+          )}
+          {!isRunning && outputStatus === "error" && (
+            <span className={`${styles.runBadge} ${styles.runBadgeError}`}>❌ Error</span>
+          )}
         </div>
 
         <div className={styles.outputMeta}>

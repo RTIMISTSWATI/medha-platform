@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import SpotifyMiniPlayer from "../components/SpotifyMiniPlayer"; // ADDED
 import styles from "./AppNav.module.css";
 
 // ── Inline SVG mascot ─────────────────────────────────────────
@@ -125,6 +126,9 @@ export default function AppNav() {
           </NavLink>
         ))}
       </nav>
+
+      {/* ── Spotify mini player ── */}
+      <SpotifyMiniPlayer /> {/* ADDED */}
 
       {/* ── Right controls ── */}
       <div className={styles.right}>
