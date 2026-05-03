@@ -205,3 +205,46 @@ pre, code {
   from { opacity: 0; transform: translateY(16px) scale(0.96); }
   to   { opacity: 1; transform: translateY(0)    scale(1);    }
 }
+
+/* ── Global smooth transitions ───────────────────────────────── */
+/* Specific properties only — avoids interfering with Monaco Editor,
+   SVG animations, backdrop-filter, and existing keyframe animations */
+
+*,
+*::before,
+*::after {
+  transition:
+    background-color 0.3s ease,
+    color            0.25s ease,
+    border-color     0.25s ease,
+    box-shadow       0.3s ease,
+    opacity          0.25s ease;
+}
+
+/* Buttons get transform smoothness too */
+button {
+  transition:
+    background-color 0.2s ease,
+    color            0.2s ease,
+    border-color     0.2s ease,
+    box-shadow       0.2s ease,
+    opacity          0.15s ease,
+    transform        0.15s ease;
+}
+
+/* Inputs and textareas */
+input,
+textarea,
+select {
+  transition:
+    border-color 0.2s ease,
+    box-shadow   0.2s ease,
+    background   0.2s ease;
+}
+
+/* Preserve existing keyframe animations — prevent the global rule
+   from adding a transition delay before animations start */
+[style*="animation"],
+[class*="animate"] {
+  transition: none;
+}
