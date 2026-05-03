@@ -21,6 +21,7 @@ export function usePlanner() {
   const [formOpen,   setFormOpen]   = useState(false);
   const [editingId,  setEditingId]  = useState(null); // null = create, id = edit
   const [filterTab,  setFilterTab]  = useState("all");
+  const [sortBy,     setSortBy]     = useState("createdAt"); // ADDED: default sort
   const [xpFlash,    setXpFlash]    = useState(null); // { id, amount } for animation
 
   // ── Bootstrap ──────────────────────────────────────────────
@@ -72,6 +73,9 @@ export function usePlanner() {
   }, [tasks, today, todayStr]);
 
   // ── Derived: filtered + sorted tasks ──────────────────────
+  // UPDATED: added sortBy dimension after filter + pinned-first
+  const PRIORITY_ORDER = { high: 0, medium: 1, low: 2 }; // ADDED
+
   const filteredTasks = useMemo(() => {
     let list;
     switch (filterTab) {
@@ -80,13 +84,31 @@ export function usePlanner() {
       case "pending":   list = tasks.filter((t) => !t.completed);            break;
       default:          list = [...tasks];
     }
-    // Pinned first, then by creation date
+
+    // Pinned always first, then apply sortBy within each group
     return list.sort((a, b) => {
+      // Pinned-first stays regardless of sort
       if (a.pinned && !b.pinned) return -1;
       if (!a.pinned && b.pinned) return 1;
-      return new Date(b.createdAt) - new Date(a.createdAt);
+
+      // ADDED: secondary sort by sortBy
+      if (sortBy === "priority") {
+        const pa = PRIORITY_ORDER[a.priority] ?? 1;
+        const pb = PRIORITY_ORDER[b.priority] ?? 1;
+        if (pa !== pb) return pa - pb; // high(0) before low(2)
+      }
+
+      if (sortBy === "dueDate") {
+        // SAFETY: tasks without deadline sort to the end
+        const da = a.deadline ? new Date(a.deadline).getTime() : Infinity;
+        const db = b.deadline ? new Date(b.deadline).getTime() : Infinity;
+        if (da !== db) return da - db; // earliest first
+      }
+
+      // Default / tiebreaker: newest created first
+      return new Date(b.createdAt ?? 0) - new Date(a.createdAt ?? 0);
     });
-  }, [tasks, filterTab, todayStr]);
+  }, [tasks, filterTab, sortBy, todayStr]);
 
   // ── Form helpers ───────────────────────────────────────────
   const updateForm = useCallback((field, value) => {
@@ -208,9 +230,9 @@ export function usePlanner() {
 
   return {
     tasks, filteredTasks, stats, xp, levelInfo, streak, heatmap,
-    form, formOpen, editingId, filterTab, xpFlash,
+    form, formOpen, editingId, filterTab, sortBy, xpFlash, // UPDATED: added sortBy
     openCreateForm, openEditForm, closeForm,
-    setFilterTab, updateForm, submitTask,
+    setFilterTab, setSortBy, updateForm, submitTask,       // UPDATED: added setSortBy
     completeTask, uncompleteTask, pinTask, deleteTask,
   };
 }

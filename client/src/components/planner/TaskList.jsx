@@ -23,13 +23,14 @@ function formatDeadline(dateStr) {
 
 export default function TaskList({
   tasks, filterTab, onFilterChange,
+  sortBy, onSortChange,              // ADDED
   onComplete, onUncomplete, onEdit, onPin, onDelete,
   xpFlash,
 }) {
   return (
     <div className={styles.container}>
 
-      {/* Filter tabs */}
+      {/* Filter tabs + sort select */}
       <div className={styles.tabsWrap}>
         <div className={styles.tabs}>
           {TABS.map((t) => (
@@ -43,6 +44,17 @@ export default function TaskList({
             </button>
           ))}
         </div>
+        {/* ADDED: sort select */}
+        <select
+          className={styles.sortSelect}
+          value={sortBy}
+          onChange={(e) => onSortChange(e.target.value)}
+          title="Sort tasks"
+        >
+          <option value="createdAt">Newest</option>
+          <option value="priority">Priority</option>
+          <option value="dueDate">Due Date</option>
+        </select>
         <span className={styles.taskCount}>{tasks.length} task{tasks.length !== 1 ? "s" : ""}</span>
       </div>
 

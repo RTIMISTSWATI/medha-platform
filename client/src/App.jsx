@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react"; // ADDED useEffect
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import AppNav from "./layouts/AppNav";
@@ -9,6 +9,7 @@ import PlannerPage    from "./pages/PlannerPage";
 import DashboardPage  from "./pages/DashboardPage";
 import QuestionsPage  from "./pages/QuestionsPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import { requestNotificationPermission, checkReminders } from "./utils/reminderService"; // ADDED
 
 // ── App shell with nav + main content ────────────────────────
 function AppShell({ children }) {
@@ -22,6 +23,14 @@ function AppShell({ children }) {
 
 // ── Root App ──────────────────────────────────────────────────
 export default function App() {
+  // ADDED: request notification permission once, then poll every 60 s
+  useEffect(() => {
+    requestNotificationPermission();
+    checkReminders();                              // run immediately on load
+    const id = setInterval(checkReminders, 60_000); // then every 60 seconds
+    return () => clearInterval(id);               // clean up on unmount
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

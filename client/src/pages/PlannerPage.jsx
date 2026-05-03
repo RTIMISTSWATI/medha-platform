@@ -12,9 +12,9 @@ import styles from "./PlannerPage.module.css";
 export default function PlannerPage() {
   const {
     filteredTasks, stats, xp, levelInfo, streak, heatmap,
-    form, formOpen, editingId, filterTab, xpFlash,
+    form, formOpen, editingId, filterTab, sortBy, xpFlash, // UPDATED
     openCreateForm, openEditForm, closeForm,
-    setFilterTab, updateForm, submitTask,
+    setFilterTab, setSortBy, updateForm, submitTask,       // UPDATED
     completeTask, uncompleteTask, pinTask, deleteTask,
   } = usePlanner();
 
@@ -44,6 +44,8 @@ export default function PlannerPage() {
             tasks={filteredTasks}
             filterTab={filterTab}
             onFilterChange={setFilterTab}
+            sortBy={sortBy}          // ADDED
+            onSortChange={setSortBy} // ADDED
             onComplete={completeTask}
             onUncomplete={uncompleteTask}
             onEdit={openEditForm}
