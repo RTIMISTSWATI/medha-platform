@@ -142,6 +142,9 @@ function ProblemPanel({ problem, activeProblem, onSelect, problems }) {
 export default function PlaygroundPage() {
   const [activeProblem, setActiveProblem] = useState(PROBLEMS[0]);
 
+  // ADDED: focus mode state
+  const [focusMode, setFocusMode] = useState(false);
+
   // ADDED: ref for the workspace element — avoids re-renders on mouse move
   const workspaceRef = useRef(null);
 
@@ -197,7 +200,7 @@ export default function PlaygroundPage() {
   }[outputStatus];
 
   return (
-    <div className={styles.workspace} ref={workspaceRef}>
+    <div className={`${styles.workspace} ${focusMode ? styles.focusMode : ""}`} ref={workspaceRef}>
 
       {/* ── Left: Problem sidebar ── */}
       <ProblemPanel
@@ -208,7 +211,7 @@ export default function PlaygroundPage() {
       />
 
       {/* ── Center: Code editor ── */}
-      <div className={styles.panel}>
+      <div className={`${styles.panel} ${styles.centerPanel}`}>
         {/* UPDATED: richer toolbar */}
         <div className={styles.toolbar}>
           <div className={styles.toolbarLeft}>
@@ -221,6 +224,14 @@ export default function PlaygroundPage() {
             disabled={isRunning}
           >
             {isRunning ? "▶ Running…" : "▶ Run Code"}
+          </button>
+          {/* ADDED: focus mode toggle */}
+          <button
+            className={`${styles.focusBtn} ${focusMode ? styles.focusBtnActive : ""}`}
+            onClick={() => setFocusMode((v) => !v)}
+            title={focusMode ? "Exit Focus Mode" : "Enter Focus Mode"}
+          >
+            {focusMode ? "✕ Exit Focus" : "⊙ Focus"}
           </button>
         </div>
 

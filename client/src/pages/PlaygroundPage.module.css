@@ -660,3 +660,58 @@
     transparent 70%
   );
 }
+
+/* ── Focus Mode ──────────────────────────────────────────────── */
+/* ADDED */
+
+.focusMode {
+  background: #080604;
+}
+
+/* Dim all panels when focus mode is active */
+.focusMode .panel {
+  opacity: 0.35;
+  filter: blur(2px);
+  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  pointer-events: none;
+}
+
+/* Highlight the center editor panel — override the dim */
+.focusMode .centerPanel {
+  opacity: 1 !important;
+  filter: none !important;
+  transform: scale(1.01);
+  z-index: 5;
+  pointer-events: auto;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(255, 200, 120, 0.08);
+}
+
+/* Focus toggle button */
+.focusBtn {
+  background: none;
+  border: 1px solid rgba(230, 196, 138, 0.2);
+  border-radius: 7px;
+  padding: 6px 12px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: rgba(183, 169, 153, 0.6);
+  cursor: pointer;
+  letter-spacing: 0.2px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+
+.focusBtn:hover {
+  background: rgba(230, 196, 138, 0.07);
+  border-color: rgba(230, 196, 138, 0.35);
+  color: #e6c48a;
+}
+
+.focusBtnActive {
+  background: rgba(230, 196, 138, 0.1) !important;
+  border-color: rgba(230, 196, 138, 0.4) !important;
+  color: #e6c48a !important;
+}
