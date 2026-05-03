@@ -45,7 +45,7 @@ export default function DashboardPage() {
           <span className={styles.heroBadgeIcon}>⚡</span>
           <div>
             <span className={styles.heroBadgeLevel}>Lv.{levelInfo.level} {levelInfo.title}</span>
-            <span className={styles.heroBadgeXP}>{xp} XP · {streak.count}🔥 streak</span>
+            <span className={styles.heroBadgeXP}>{xp} XP · {stats.streak ?? streak.count}🔥 streak</span>
           </div>
         </div>
       </header>

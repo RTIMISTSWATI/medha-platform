@@ -33,12 +33,16 @@ export const plannerService = {
   createTask(task) {
     const tasks = load(KEYS.tasks, []);
     const created = {
-      ...task,
-      id: `task-${Date.now()}`,
+      id: Date.now(), // Use number instead of string
+      title: task.title,
       completed: false,
       createdAt: new Date().toISOString(),
+      ...task, // Include other fields
     };
-    save(KEYS.tasks, [created, ...tasks]);
+    const updatedTasks = [created, ...tasks];
+    save(KEYS.tasks, updatedTasks);
+    // Also save to 'tasks' key for dashboard integration
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
     return Promise.resolve(created);
   },
 
@@ -47,11 +51,16 @@ export const plannerService = {
       t.id === id ? { ...t, ...updates } : t
     );
     save(KEYS.tasks, tasks);
+    // Also save to 'tasks' key for dashboard integration
+    localStorage.setItem('tasks', JSON.stringify(tasks));
     return Promise.resolve(tasks.find((t) => t.id === id));
   },
 
   deleteTask(id) {
-    save(KEYS.tasks, load(KEYS.tasks, []).filter((t) => t.id !== id));
+    const updatedTasks = load(KEYS.tasks, []).filter((t) => t.id !== id);
+    save(KEYS.tasks, updatedTasks);
+    // Also save to 'tasks' key for dashboard integration
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
     return Promise.resolve({ id });
   },
 

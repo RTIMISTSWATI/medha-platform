@@ -25,7 +25,11 @@ export function usePlanner() {
 
   // ── Bootstrap ──────────────────────────────────────────────
   useEffect(() => {
-    plannerService.getTasks().then(setTasks);
+    plannerService.getTasks().then((loadedTasks) => {
+      setTasks(loadedTasks);
+      // Sync with dashboard integration key
+      localStorage.setItem('tasks', JSON.stringify(loadedTasks));
+    });
     setXp(plannerService.getXP());
     setStreak(plannerService.getStreak());
     setHeatmap(plannerService.getHeatmap());
@@ -121,10 +125,23 @@ export function usePlanner() {
 
     if (editingId) {
       const updated = await plannerService.updateTask(editingId, form);
-      setTasks((prev) => prev.map((t) => (t.id === editingId ? updated : t)));
+      setTasks((prev) => {
+        const newTasks = prev.map((t) => (t.id === editingId ? updated : t));
+        localStorage.setItem('tasks', JSON.stringify(newTasks));
+        return newTasks;
+      });
     } else {
-      const created = await plannerService.createTask(form);
-      setTasks((prev) => [created, ...prev]);
+      const created = await plannerService.createTask({
+        ...form,
+        id: Date.now(),
+        completed: false,
+        createdAt: new Date().toISOString()
+      });
+      setTasks((prev) => {
+        const newTasks = [created, ...prev];
+        localStorage.setItem('tasks', JSON.stringify(newTasks));
+        return newTasks;
+      });
     }
     closeForm();
   }, [form, editingId, closeForm]);
@@ -138,7 +155,11 @@ export function usePlanner() {
       completed: true,
       completedAt: new Date().toISOString(),
     });
-    setTasks((prev) => prev.map((t) => (t.id === id ? updated : t)));
+    setTasks((prev) => {
+      const newTasks = prev.map((t) => (t.id === id ? updated : t));
+      localStorage.setItem('tasks', JSON.stringify(newTasks));
+      return newTasks;
+    });
 
     let earned = XP_REWARDS.completeTask;
     if (task.priority === "high") earned += XP_REWARDS.highPriority;
@@ -160,7 +181,11 @@ export function usePlanner() {
       completed: false,
       completedAt: null,
     });
-    setTasks((prev) => prev.map((t) => (t.id === id ? updated : t)));
+    setTasks((prev) => {
+      const newTasks = prev.map((t) => (t.id === id ? updated : t));
+      localStorage.setItem('tasks', JSON.stringify(newTasks));
+      return newTasks;
+    });
   }, []);
 
   // ── Pin ────────────────────────────────────────────────────
@@ -174,7 +199,11 @@ export function usePlanner() {
   // ── Delete ─────────────────────────────────────────────────
   const deleteTask = useCallback(async (id) => {
     await plannerService.deleteTask(id);
-    setTasks((prev) => prev.filter((t) => t.id !== id));
+    setTasks((prev) => {
+      const newTasks = prev.filter((t) => t.id !== id);
+      localStorage.setItem('tasks', JSON.stringify(newTasks));
+      return newTasks;
+    });
   }, []);
 
   return {

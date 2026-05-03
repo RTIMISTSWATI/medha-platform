@@ -4,7 +4,9 @@ import { PLANNER_SUBJECTS } from "../../constants/planner";
 import styles from "./ProgressCharts.module.css";
 
 function WeeklyChart({ weeklyData }) {
-  const max = Math.max(...weeklyData, 1);
+  // FIXED: weeklyData is [{day, count}] objects — extract counts before spreading into Math.max
+  const counts = Array.isArray(weeklyData) ? weeklyData.map(d => (d?.count ?? d ?? 0)) : [];
+  const max = Math.max(...counts, 1);
   return (
     <div className={styles.chartCard}>
       <div className={styles.chartHeader}>
@@ -13,7 +15,11 @@ function WeeklyChart({ weeklyData }) {
       </div>
       <div className={styles.barChart}>
         {WEEK_DAYS.map((day, i) => {
-          const val = weeklyData[i] ?? 0;
+          // FIXED: safely read count from object or number
+          const raw = weeklyData?.[i];
+          const val = (raw !== null && raw !== undefined)
+            ? (typeof raw === 'object' ? (raw.count ?? 0) : raw)
+            : 0;
           const pct = Math.round((val / max) * 100);
           const isToday = i === new Date().getDay() - 1;
           return (
@@ -76,10 +82,13 @@ function SubjectProgress({ subjectMap }) {
 
 export default function ProgressCharts({ stats }) {
   if (!stats) return null;
+  // FIXED: guard against missing weeklyData / subjectMap
+  const weeklyData = Array.isArray(stats.weeklyData) ? stats.weeklyData : [];
+  const subjectMap = stats.subjectMap && typeof stats.subjectMap === 'object' ? stats.subjectMap : {};
   return (
     <div className={styles.row}>
-      <WeeklyChart weeklyData={stats.weeklyData} />
-      <SubjectProgress subjectMap={stats.subjectMap} />
+      <WeeklyChart weeklyData={weeklyData} />
+      <SubjectProgress subjectMap={subjectMap} />
     </div>
   );
 }
