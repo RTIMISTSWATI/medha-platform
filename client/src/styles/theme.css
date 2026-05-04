@@ -331,3 +331,81 @@ pre, code {
   color: var(--gold);
   border: 1px solid var(--gold-border);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN SYSTEM ALIASES
+   Maps shorthand names to existing tokens for new components.
+   All values reference existing variables — no duplication.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Shorthand aliases ── */
+  --bg-main:        var(--bg-base);
+  --accent-gold:    var(--gold);
+  --accent-soft:    var(--gold-dim);
+  --text-primary:   var(--text);
+  --text-secondary: var(--text-muted);
+  --shadow-main:    var(--shadow-lg);
+
+  /* ── Semantic surface tokens ── */
+  --surface-1:      var(--bg-surface);
+  --surface-2:      var(--bg-card);
+  --surface-3:      var(--bg-elevated);
+
+  /* ── Semantic border tokens ── */
+  --border-default: var(--border);
+  --border-subtle:  var(--border-soft);
+  --border-strong:  var(--border-warm);
+
+  /* ── Semantic text tokens ── */
+  --text-body:      var(--text-muted);
+  --text-caption:   var(--text-soft);
+  --text-accent:    var(--gold);
+}
+
+/* ── .standardBtn — alias for .btn-primary ───────────────────── */
+/* Use either class name; both produce the same gold gradient button */
+.standardBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  color: var(--bg-base);
+  border: none;
+  border-radius: var(--radius);
+  padding: 10px 24px;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  font-family: inherit;
+  transition:
+    opacity          var(--duration-fast) var(--ease),
+    transform        var(--duration-fast) var(--ease),
+    box-shadow       var(--duration-fast) var(--ease);
+  box-shadow: 0 4px 16px rgba(194, 168, 120, 0.28);
+}
+
+.standardBtn:hover {
+  opacity: 0.92;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 200, 120, 0.25);
+}
+
+.standardBtn:active {
+  transform: translateY(0);
+}
+
+/* ── .surface — semantic surface card ───────────────────────── */
+.surface {
+  background: var(--surface-2);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: var(--card-pad);
+}
+
+/* ── .text-gold — quick gold text utility ────────────────────── */
+.text-gold    { color: var(--gold); }
+.text-muted   { color: var(--text-muted); }
+.text-primary { color: var(--text); }
